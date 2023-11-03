@@ -1,2 +1,3 @@
-# java
-The Java Programming Language
+# The Java Programming Language
+
+Everything about Java and Java Platform.
