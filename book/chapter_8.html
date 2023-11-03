@@ -1,0 +1,650 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>OOPS</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Basics</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Collections</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> Concurrency</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> Exceptions</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> Generics</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> IO</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> Streams</a></li><li class="chapter-item expanded "><a href="chapter_8.html" class="active"><strong aria-hidden="true">8.</strong> OOPS</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="object"><a class="header" href="#object">Object</a></h1>
+<p>Objects consisting of state and behavior. They store state in fields and exposes behavior using methods. They need to be
+declared and initialized to be created. Objects are stored in heap memory. Heap is a large pool of  unused memory allocated 
+for the application.</p>
+<p>Object created needs to be destroyed. GC is a program for automatic memory management in the Java platform. To destroy 
+objects -</p>
+<ul>
+<li>They should no longer have any reference pointing to it</li>
+<li>All reference point to the object should be out of scope</li>
+</ul>
+<p><strong>Initialization</strong></p>
+<p>Java has empty initializers with no associated name or data type. These initializers are static and instance. Initialization are done in order -</p>
+<ul>
+<li>
+<p>Static variables and static initializers</p>
+</li>
+<li>
+<p>Instance variables and instance initializers</p>
+</li>
+<li>
+<p>Constructors</p>
+</li>
+</ul>
+<pre><code class="language-java">{
+    id = 0;
+}
+</code></pre>
+<p>Static intializers are used to intialize static fields.</p>
+<pre><code class="language-java">private static String forum;
+static {
+    forum = &quot;Java&quot;;
+}
+</code></pre>
+<p><strong>Declaration</strong></p>
+<p>Declaration is the process of defining the variable. Initialization is about assigning a value to a variable</p>
+<p>Primitive types hold value in-memory where the variable is allocated. Reference types hold reference to objects (instances of the class) instead of the object they are referring to.</p>
+<pre><code class="language-java">@Test
+public void whenIntializedWithNew_thenInstanceIsNotNull() {
+    User user = new User();
+
+    assertThat(user).isNotNull();
+}
+</code></pre>
+<p>Object creation is bit more complex. Object initilization occurs using the new keyword, this invokes the constructor and initializes the object in memory.</p>
+<ul>
+<li>
+<p>New keyword is responsible for allocating memory for the new object through a constructor</p>
+</li>
+<li>
+<p>Constructor represents the main property of the object and is used to initialize instance variables. Class can have many constructors as long as the parameter (overloading)</p>
+</li>
+</ul>
+<p><strong>Other methods for creating objects</strong></p>
+<p>Objects can be created using reflection, cloning, and serialization. </p>
+<ul>
+<li>
+<p>Reflection is a mechanism to inspect classes, fields, and methods at run-time</p>
+</li>
+<li>
+<p>Cloning is a way to create exact copy of the object using the clone() and clonable interface.</p>
+</li>
+</ul>
+<h1 id="class"><a class="header" href="#class">Class</a></h1>
+<p>Class is a blueprint of certain type containing state and behavior. Objects of a class is called instances. Every class has an empty constructor by default. An empty constructor only initializes the fields with default values.</p>
+<p>An object is a living instance of a class and they maintain the state and behavior during runtime. Class constructor doesn't initialize the field it merely declares</p>
+<pre><code class="language-java">class BankAccount {
+    String name;
+    LocalDateTime opened;
+    double balance;
+
+    @Override
+    public String toString() {
+        return String.format(&quot;%s, %s, %f&quot;, 
+          this.name, this.opened.toString(), this.balance);
+    }
+}
+</code></pre>
+<pre><code class="language-java">BankAccount account = new BankAccount();
+account.toString();
+</code></pre>
+<pre><code class="language-java">java.lang.NullPointerException
+    at com.baeldung.constructors.BankAccount.toString(BankAccount.java:12)
+    at com.baeldung.constructors.ConstructorUnitTest
+      .givenNoExplicitContructor_whenUsed_thenFails(ConstructorUnitTest.java:23)
+</code></pre>
+<p><strong>Concrete</strong></p>
+<ul>
+<li>
+<p>Concrete classes are class that we can create instance of using the new keyword. Examples of concrete classes are HashMap, ArrayList, etc.Not all classes are concrete, Java also has abstract classes - abstract, interface.</p>
+</li>
+<li>
+<p>Class is a blueprint for an object and Interface is a blueprint for a class. Concrete classes can implement interfaces.</p>
+</li>
+<li>
+<p>Primitive types hold the value in-memory where the variable is allocated. References don't hold the value of the object they refer to.</p>
+</li>
+</ul>
+<p><strong>Final Variables</strong></p>
+<p>They can only be initialized within the constructor of the class and are immutable. If we create multiple constructor within the class, then they need to be initialized under each constructor.</p>
+<p><strong>This and Super</strong></p>
+<p>This is used to refer the current object. It is typically used in constructor to differentiate the local variable with the parameters. </p>
+<p>Super is used to access the parent class. It can be used to call the parent constructor. It can be used to access the parent constructor's variables.</p>
+<h3 id="abstract"><a class="header" href="#abstract">Abstract</a></h3>
+<p>Java provides a mechanism to achieve abstraction, polumorphism, inheritance has can be achieved using abstract and interface keyword. Abstract class enables data encapsulation and polymorphism. It doesn't allow multiple inheritance.</p>
+<p>Properties of abstraction using abstract keyword -</p>
+<ul>
+<li>
+<p>It is defined using the abstract keyword preceding the class keyword</p>
+</li>
+<li>
+<p>Abstract class can be subclassed but cannot be instantiated. If a class has one abstract method, then the entire class should be abstracted. This also means an abstract class can have concrete or abstract methods.</p>
+</li>
+<li>
+<p>Subclass that extend the abstract class must implement all the abstract methods or be an abstract class itself</p>
+</li>
+</ul>
+<pre><code class="language-java">public abstract class BoardGame {
+
+    //... field declarations, constructors
+
+    public abstract void play();
+
+    //... concrete methods
+}
+</code></pre>
+<pre><code class="language-java">public class Checkers extends BoardGame {
+
+    public void play() {
+        //... implementation
+    }
+}
+</code></pre>
+<p>When to use abstract classes -</p>
+<ul>
+<li>
+<p>Abstraction can be used to encapsulate multiple functionality into one place and can be reused across other places</p>
+</li>
+<li>
+<p>Abstraction allows for lazy implementation, where the blueprint is defined and the implementation is done more concretely someplace else</p>
+</li>
+<li>
+<p>Concrete classes have common functionality that can be used with protected access modifiers</p>
+</li>
+</ul>
+<p>Properties of abstraction using interface keyword -</p>
+<ul>
+<li>An interface is a blue print for a class. Interface cannot be instantiated using the new keyword but concrete class can implement these methods. Eg Map, List, Set</li>
+</ul>
+<pre><code class="language-java">interface Mogul {
+    void name();
+}
+</code></pre>
+<ul>
+<li>Abstract class can have both implemented and unimplemented methods. Eg. AbstractList, AbstractSet</li>
+</ul>
+<h3 id="interfaces"><a class="header" href="#interfaces">Interfaces</a></h3>
+<p>Interfaces is used to implement polymorphism and multiple inheritance. They help add additional functionality to 
+unrelated classes. For instance Comparable, Comparator, and Cloneable are interfaces that can be implemented by unrelated 
+classes.</p>
+<p><strong>Default Methods</strong></p>
+<p>Conceptually the main purpose of default methods in interfaces is backward compatibility.</p>
+<p><strong>Multiple Inheritance</strong></p>
+<p>Java primarily supports single inheritance. Using interfaces we can implement multiple interfaces.</p>
+<pre><code class="language-java">public interface Transform {
+    void transform();
+}
+
+public interface Fly {
+    void fly();
+}
+
+public class Car implements Fly, Transform {
+
+    @Override
+    public void fly() {
+        System.out.println(&quot;I can Fly!!&quot;);
+    }
+
+    @Override
+    public void transform() {
+        System.out.println(&quot;I can Transform!!&quot;);
+    }
+}
+</code></pre>
+<p>In order to enable multiple inheritance through interfaces we have to remember a few rules.</p>
+<ul>
+<li>
+<p>Interface extending another interface</p>
+</li>
+<li>
+<p>Abstract class implementing interfaces</p>
+</li>
+</ul>
+<h1 id="object-oriented-concepts"><a class="header" href="#object-oriented-concepts">Object-Oriented Concepts</a></h1>
+<p>Data abstraction is the ability to view only the required characteristics of the object. Encapsulation is the ability to hide behavior under single unit typically a class. It is a protective shield that prevents the data from being accessed by the code outside this shield. Encapsulation is implemented using access modifiers, and abstraction is implemented using abstract and interface classes.</p>
+<h3 id="polymorphism"><a class="header" href="#polymorphism">Polymorphism</a></h3>
+<p>Ability for an object to take different forms during runtime. It is achieved through overriding behavior of a specific object.</p>
+<pre><code class="language-java">public interface Shape {
+    String name();
+}
+</code></pre>
+<pre><code>public class Circle implements Shape {
+
+    @Override
+    public String name() {
+        return &quot;Circle&quot;;
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class Square implements Shape {
+
+    @Override
+    public String name() {
+        return &quot;Square&quot;;
+    }
+}
+</code></pre>
+<pre><code class="language-java">List&lt;Shape&gt; shapes = new ArrayList&lt;&gt;();
+Shape circleShape = new Circle();
+Shape squareShape = new Square();
+
+shapes.add(circleShape);
+shapes.add(squareShape);
+
+for (Shape shape : shapes) {
+    System.out.println(shape.name());
+}
+</code></pre>
+<h3 id="inheritance"><a class="header" href="#inheritance">Inheritance</a></h3>
+<p>Inheritance enables us to reuse existing code or extending an existing type. A call can inherit another class and multiple inheritance. </p>
+<p>When a class inherits another class or interface, it not only inherits the members but also their type.</p>
+<pre><code class="language-java">public interface Car {
+
+}
+
+public class Skoda implements Car {
+
+}
+
+
+public class Employee {
+    private String name;
+    private Car car;
+
+    public Employee(Car car) {
+        this.car = car
+    }
+}
+
+// Armored Car is a subclass of Car
+Employee e1 = new Employee(new ArmoredCar());
+</code></pre>
+<p>If both the superclass and subclass define a variable or method with the same name, then it needs to be prefixed with this or super.</p>
+<p>If both the superclass and subclass define a static variable or method with the same name, then they need to be explicity called using the class name and not super().</p>
+<pre><code class="language-java">public class Car {
+    public static String msg() {
+        return &quot;Car&quot;;
+    }
+}
+
+public class ArmoredCar extends Car {
+    public static String msg() {
+        return super.msg(); // this won't compile.
+    }
+}
+
+public class ArmoredCar extends Car {
+    public static String msg() {
+        return Car.msg(); // this will compile.
+    }
+}
+</code></pre>
+<p>Or we can call them explicity. </p>
+<pre><code class="language-java">public class Car {
+    public static String msg() {
+        return &quot;Car&quot;;
+    }
+}
+
+public class ArmoredCar extends Car {
+    public static String msg() {
+        return &quot;ArmoredCar&quot;;
+    }
+}
+
+Car first = new ArmoredCar();
+ArmoredCar second = new ArmoredCar();
+</code></pre>
+<p>For the above code, <em>first.msg()</em> will output “Car*“* and <em>second.msg()</em> will output “ArmoredCar”. The static message that is called depends on the type of the variable used to refer to <em>ArmoredCar</em> instance.</p>
+<p><strong>Class Inheritance</strong></p>
+<ul>
+<li>
+<p>Inheritance using a class. Classes only support single inheritance. A subclass inherits all the non-static protected and public methods from the superclass. </p>
+</li>
+<li>
+<p>Default access modifiers can inherit only within the same package. Parent members can be accessed directly by the subclass.</p>
+</li>
+</ul>
+<p><strong>Interface Inheritance</strong></p>
+<p>Class can inherit multiple interfaces. </p>
+<pre><code class="language-java">public interface Floatable {
+    void floatOnWater();
+}
+</code></pre>
+<pre><code class="language-java">public interface Flyable {
+    void fly();
+}
+</code></pre>
+<pre><code class="language-java">public class ArmoredCar extends Car implements Floatable, Flyable{
+    public void floatOnWater() {
+        System.out.println(&quot;I can float!&quot;);
+    }
+
+    public void fly() {
+        System.out.println(&quot;I can fly!&quot;);
+    }
+}
+</code></pre>
+<p>In Java 8, with default methods if a class implements multiple interfaces with same method signature, the child class would inherit separate implementation. </p>
+<pre><code class="language-java">public interface Floatable {
+    default void repair() {
+        System.out.println(&quot;Repairing Floatable object&quot;);    
+    }
+}
+</code></pre>
+<pre><code class="language-java">public interface Flyable {
+    default void repair() {
+        System.out.println(&quot;Repairing Flyable object&quot;);    
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class ArmoredCar extends Car implements Floatable, Flyable {
+    // this won't compile
+}
+</code></pre>
+<p>In case on wants to implement both interfaces, we will have to override the methods. If the interfaces in the preceding examples define variables with the same name, say <em>duration</em>, we can't access them without preceding the variable name with the interface name:</p>
+<pre><code class="language-java">public interface Floatable {
+    int duration = 10;
+}
+
+public interface Flyable {
+    int duration = 20;
+}
+
+public class ArmoredCar extends Car implements Floatable, Flyable {
+
+    public void aMethod() {
+        System.out.println(duration); // won't compile
+        System.out.println(Floatable.duration); // outputs 10
+        System.out.println(Flyable.duration); // outputs 20
+    }
+}
+</code></pre>
+<p><strong>Interface extending multiple interfaces</strong></p>
+<p>Interface can extend multiple interfaces by using extends keyword.</p>
+<pre><code class="language-java">public interface Floatable {
+    void floatOnWater();
+}
+
+interface interface Flyable {
+    void fly();
+}
+
+public interface SpaceTraveller extends Floatable, Flyable {
+    void remoteControl();
+}
+</code></pre>
+<h3 id="overloading-and-overriding"><a class="header" href="#overloading-and-overriding">Overloading and Overriding</a></h3>
+<p><strong>Overloading</strong></p>
+<p>Overloading is the ability to create multiple methods with the same name. This is achieved through a process called static binding which is the ability to associate method calls to the correct method (in the method body). In case of overloading binding is done in compile time hence it is also called as static binding. The compiler simply checks the method signature. </p>
+<p>Java allows method overloading in the following ways - </p>
+<ul>
+<li>Different number of arguments</li>
+</ul>
+<pre><code class="language-java">public class Multiplier {
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public int multiply(int a, int b, int c) {
+        return a * b * c;
+    }
+}
+</code></pre>
+<ul>
+<li>Different argument types</li>
+</ul>
+<pre><code class="language-java">public class Multiplier {
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public double multiply(double a, double b) {
+        return a * b;
+    }
+}
+</code></pre>
+<ul>
+<li>Two methods that differ only in their return types is not possible</li>
+</ul>
+<pre><code class="language-java">public int multiply(int a, int b) { 
+    return a * b; 
+}
+
+public double multiply(int a, int b) { 
+    return a * b; 
+}
+</code></pre>
+<p><strong>Overriding</strong></p>
+<p>Overriding is the ability extend implementation in subclasses for methods defined in the parent class. Overriding is more a consequence of inheritance where overloading need not have inheritance. </p>
+<p>Since overriding can only be implemented using inheritance where there is a hierarchy of base and subtypes. The compiler cannot determine at compile time what method to call. This happens only at runtime and this called as dynamic binding. </p>
+<pre><code class="language-java">public class Vehicle {
+
+    public String accelerate(long mph) {
+        return &quot;The vehicle accelerates at : &quot; + mph + &quot; MPH.&quot;;
+    }
+
+    public String stop() {
+        return &quot;The vehicle has stopped.&quot;;
+    }
+
+    public String run() {
+        return &quot;The vehicle is running.&quot;;
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class Car extends Vehicle {
+
+    @Override
+    public String accelerate(long mph) {
+        return &quot;The car accelerates at : &quot; + mph + &quot; MPH.&quot;;
+    }
+}
+</code></pre>
+<p>It's valid to make an overridden method to accept arguments of different types and return a different type as well, but with full adherence to these rules:</p>
+<ul>
+<li>If a method in the base class takes argument(s) of a given type, the overridden method should take the same type or a supertype (a.k.a. <em>contravariant</em> method arguments)</li>
+<li>If a method in the base class returns <em>void</em>, the overridden method should return <em>void</em></li>
+<li>If a method in the base class returns a primitive, the overridden method should return the same primitive</li>
+<li>If a method in the base class returns a certain type, the overridden method should return the same type or a subtype (a.k.a. <em>covariant</em> return type)</li>
+<li>If a method in the base class throws an exception, the overridden method must throw the same exception or a subtype of the base class exception</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="chapter_7.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="chapter_7.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+
+    </div>
+    </body>
+</html>

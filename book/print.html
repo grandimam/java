@@ -1,0 +1,1396 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title></title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="chapter_1.html"><strong aria-hidden="true">1.</strong> Basics</a></li><li class="chapter-item expanded "><a href="chapter_2.html"><strong aria-hidden="true">2.</strong> Collections</a></li><li class="chapter-item expanded "><a href="chapter_3.html"><strong aria-hidden="true">3.</strong> Concurrency</a></li><li class="chapter-item expanded "><a href="chapter_4.html"><strong aria-hidden="true">4.</strong> Exceptions</a></li><li class="chapter-item expanded "><a href="chapter_5.html"><strong aria-hidden="true">5.</strong> Generics</a></li><li class="chapter-item expanded "><a href="chapter_6.html"><strong aria-hidden="true">6.</strong> IO</a></li><li class="chapter-item expanded "><a href="chapter_7.html"><strong aria-hidden="true">7.</strong> Streams</a></li><li class="chapter-item expanded "><a href="chapter_8.html"><strong aria-hidden="true">8.</strong> OOPS</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title"></h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <p>Java platforms has tools and libraries necessary for developing Java based application. </p>
+<p>JVM and JRE are core components of JDK. JVM is the run-time engine to run the Java application. JVM calls the main method. 
+Java applications are called WORA (write once read anywhere). A programmer can develop Java code on one system and expect
+to run on any other environment. When we compile a .java file, a .class file gets created by the Java compiler. The <em>.class</em> 
+files contains byte-code with the same class names present in <em>.java</em>. </p>
+<p>These class files go through various stages -</p>
+<p><img src="https://media.geeksforgeeks.org/wp-content/uploads/CommonArticleDesign20-min-1.png" alt="" /></p>
+<h3 id="jit-just-in-time-compilation"><a class="header" href="#jit-just-in-time-compilation"><strong>JIT (Just In Time Compilation)</strong></a></h3>
+<p>Just-in-time (JIT) compilation is a way of executing computer code that involves compilation during execution of a program (runtime).</p>
+<p>Converting bytecode to native machine language has a huge impact. These Bytecode have to be interpreted or compiled to proper machine instructions depending on the instruction set architecture. </p>
+<p>Moreover, these can be directly executed if the instruction architecture is bytecode based. Interpreting the bytecode affects the speed of execution. In order to improve performance, JIT compilers interact with the Java Virtual Machine (JVM) at run time and compile suitable bytecode sequences into native machine code.</p>
+<h1 id="data-type"><a class="header" href="#data-type">Data Type</a></h1>
+<p>Java is strictly pass by value. </p>
+<p>In pass by value, the caller and callee method operate on two difference variables which are copies of each other. Any 
+changes on the one won't modify the other. While calling the method, the parameters are passed will be clone of the 
+original parameters. Any modification done won't have any effect on the original parameters.</p>
+<p>In pass by reference, the caller and callee method will operate on the same object. Any changes on the parameter will 
+result in changes of the original value. Primitives variables store the actual value, non-primitive variables store reference</p>
+<p>There are two broad data types - primitive and reference. Primitive data types are the basic data types. In Java, the 
+primitive data types are integer, floating-point, character, and boolean. Reference data types are object that contains 
+references to value or other objects.</p>
+<p><strong>Declaring the primitive data types</strong></p>
+<pre><code class="language-java">int a;
+int b;
+</code></pre>
+<p>The variables will receive default values based on their declared types. For integers, the default values would be 0, and 0.0.</p>
+<h2 id="array"><a class="header" href="#array">Array</a></h2>
+<p>An array is a reference type that can store collections of specific type. Arrays are objects and object variables are 
+always references in Java. So, when we declare an object variable as final, it means that the variable cannot be changed
+to refer to anything else.</p>
+<h2 id="string"><a class="header" href="#string">String</a></h2>
+<p>An object whose state remains constant after it has been created entirely. Once an object has been assigned to a variable,
+we can neither update the reference nor mutate the internal state.</p>
+<p>String are created immutable, thread-safe to improve caching and performance. String uses a process called interning, 
+where we store only one distinct copy of the value and reusing them to save heap (two different variables point to the 
+same string object).</p>
+<h3 id="string-buffer-and-string-builder"><a class="header" href="#string-buffer-and-string-builder">String Buffer and String Builder</a></h3>
+<ul>
+<li>String are immutable, and objects of StringBuffer and StringBuilder are mutable.</li>
+<li>StringBuffer and StringBuilder are similar, but StringBuilder is faster and preferred over StringBuffer for single-threaded program. If thread safety is needed, then StringBuffer is used.</li>
+</ul>
+<h3 id="-comparison"><a class="header" href="#-comparison"><strong>==, comparison</strong></a></h3>
+<p>This way of string comparison only checks for referential equality of two string.</p>
+<pre><code class="language-java">String string1 = &quot;using comparison operator&quot;;
+String string2 = &quot;using comparison operator&quot;;
+String string3 = new String(&quot;using comparison operator&quot;);
+
+assertThat(string1 == string2).isTrue();
+assertThat(string1 == string3).isFalse();
+</code></pre>
+<p>In the example above, the first assertion is true because the two variables point to the same <em>String</em> literal. On the other hand, the second assertion is false because <em>string1</em> is created with a literal and <em>string3</em> is created using the <em>new</em> operator – therefore they reference different objects.</p>
+<h3 id="equals"><a class="header" href="#equals"><strong>equals()</strong></a></h3>
+<p>Equals is overriden by the String class from the Object. This method compares two strings character by character ignoring their address.</p>
+<pre><code class="language-java">String string1 = &quot;using equals method&quot;;
+String string2 = &quot;using equals method&quot;;
+
+String string3 = &quot;using EQUALS method&quot;;
+String string4 = new String(&quot;using equals method&quot;);
+
+assertThat(string1.equals(string2)).isTrue();
+assertThat(string1.equals(string4)).isTrue();
+
+assertThat(string1.equals(null)).isFalse();
+assertThat(string1.equals(string3)).isFalse();
+</code></pre>
+<p>In this example, <em>string1, string2,</em> and <em>string4</em> variables are equal because they have the same case and value irrespective of their address.</p>
+<p>For <em>string3</em> the method returns <em>false,</em> as it's case sensitive. Also, if any of the two strings is <em>null</em>, then the method returns <em>false.</em></p>
+<h3 id="equalsignorecase"><a class="header" href="#equalsignorecase"><strong>equalsIgnoreCase()</strong></a></h3>
+<p>Ignores casing in characters while comparing <em>Strings</em>.</p>
+<h3 id="compareto"><a class="header" href="#compareto"><strong>compareTo()</strong></a></h3>
+<p>Compares two string character by character lexicographically. This method returns 0 if two <em>Strings</em> are equal or if both are <em>null,</em> a negative number if the first <em>String</em> comes before the argument, and a number greater than zero if the first <em>String</em> comes after the argument <em>String.</em></p>
+<pre><code class="language-java">String author = &quot;author&quot;;
+String book = &quot;book&quot;;
+String duplicateBook = &quot;book&quot;;
+
+assertThat(author.compareTo(book))
+  .isEqualTo(-1);
+assertThat(book.compareTo(author))
+  .isEqualTo(1);
+assertThat(duplicateBook.compareTo(book))
+  .isEqualTo(0);
+</code></pre>
+<h1 id="access-modifiers"><a class="header" href="#access-modifiers">Access Modifiers</a></h1>
+<p>Access modifiers are used to encapsulate the state of the objects. Default access modifiers are package-private, as all 
+members are only visible within the same packages. Protected access modifiers are also package-private but also members 
+are visible to their subclasses as well.</p>
+<h2 id="variable-scope"><a class="header" href="#variable-scope">Variable Scope</a></h2>
+<p><strong>Instance and Class Variable</strong></p>
+<p>Instance and class variables don't require us to initialize. As soon as we declare them they are given default value.</p>
+<pre><code class="language-java">@Test
+public void whenValuesAreNotInitialized_thenUserNameAndIdReturnDefault() {
+    User user = new User();
+
+    assertThat(user.getName()).isNull();
+    assertThat(user.getId() == 0);
+}
+</code></pre>
+<p><strong>Local Variable</strong></p>
+<p>Local variable must be initialized before use, as they don't have default value. The below code will give error during 
+the compilation stage itself.</p>
+<pre><code class="language-java">public void print(){
+    int i;
+    System.out.println(i);
+}
+</code></pre>
+<p><strong>Final</strong></p>
+<p>Final variable is applied to the field that can no longer be modified.</p>
+<h2 id="non-access-modifiers"><a class="header" href="#non-access-modifiers">Non-Access Modifiers</a></h2>
+<ul>
+<li>
+<p>Final</p>
+</li>
+<li>
+<p>Static</p>
+</li>
+<li>
+<p>Volatile</p>
+</li>
+<li>
+<p>Abstract</p>
+</li>
+<li>
+<p>Transient</p>
+</li>
+<li>
+<p>Synchronized</p>
+</li>
+</ul>
+<h2 id="static"><a class="header" href="#static">Static</a></h2>
+<p>Static keyword means that a particular member belongs to the type itself rather than the instance of that type. That is 
+there is only one instance of the member shared across all instances of the class. Static initializers are created 
+before the class is created. </p>
+<p><strong>Fields</strong></p>
+<p>Static fields are stored in the heap. When a field is declared as static, a single copy of that field is created and 
+shared among all instance of that class. Static fields can only be declared at a class level, and can be accessed 
+without object creation.</p>
+<pre><code class="language-java">public class Car {
+    private String name;
+    private String engine;
+
+    public static int numberOfCars;
+
+    public Car(String name, String engine) {
+        this.name = name;
+        this.engine = engine;
+        numberOfCars++;
+    }
+
+    // getters and setters
+}
+</code></pre>
+<p><strong>Methods</strong></p>
+<p>Static methods belong to the class instead of the instance. We can call them without creating the object. Static methods
+are resolved in compile time and since overriding is runtime process static methods cannot be overridden. Abstract methods
+cannot be static. Static methods can't use this or super. Instance methods can directly access other instance and 
+non-instance methods and variables. Static methods can access all static variables, methods and can't access non-static 
+variables and methods directly (they require object reference to do so)</p>
+<p><strong>Class</strong></p>
+<p>A class can be made <strong>static</strong> only if it is a nested. We cannot declare a top-level class with a static modifier. Such 
+types of classes are called Nested static classes. Nested static class doesn’t need a reference of Outer class. </p>
+<p>In this case, a static class cannot access non-static members of the Outer class.</p>
+<h2 id="final"><a class="header" href="#final">Final</a></h2>
+<p>Final keyword is used to limit the scope for variables, classes, and methods.</p>
+<p><strong>Class</strong></p>
+<p>Classes market with final keyword cannot be extended. One of the major immutable classes that have final marked are 
+String class. Any attempt to extend a final class will result in compilation error. Final class doesn't mean that objects
+are immutable. We just can't extend it.</p>
+<pre><code class="language-java">public final class Cat {
+
+    private int weight;
+
+    // standard getter and setter
+}
+</code></pre>
+<p><strong>Methods</strong></p>
+<p>Methods marked as finals cannot be overriden.</p>
+<pre><code class="language-java">public class Dog {
+    public final void sound() {
+        // ...
+    }
+}
+</code></pre>
+<ul>
+<li>Methods marked as final can be overloaded</li>
+<li>Mark a method as final if we don't want to the caller to cause suprising results</li>
+<li>Difference between marking all the methods final and marking the class final is that in the former we can extend the 
+class and in the latter we cannot</li>
+</ul>
+<p><strong>Fields and Variables</strong></p>
+<p>Variables marked as final cannot be reassigned. Primitive variables cannot be assigned again. Reference variables cannot
+be reassigned but are still mutable.</p>
+<pre><code class="language-java">final Cat cat = new Cat();
+</code></pre>
+<pre><code>cat.setWeight(5);
+
+assertEquals(5, cat.getWeight());
+</code></pre>
+<p>Final fields can be constant or write once fields. And class constant fields should be capitalized. In case the fields 
+are not meant to be serialized then the fields must be specified as final.</p>
+<pre><code class="language-java">static final int MAX_WIDTH = 999;
+</code></pre>
+<p>All final fields must be initialized before the constructor completes. <strong>You can assign a value to a final variable only one time.</strong></p>
+<ul>
+<li>For static final fields, these need to be initialized upon declaration or inside static initializers (as static 
+initializers are created before constructors).</li>
+<li>For instance fields, they can be initialized - upon declaration, inside initializer block, inside the constructor.</li>
+</ul>
+<p>Constructor can be invoked only <strong>one</strong> time per object creation by using the <code>new</code> keyword. You cannot invoke constructor multiple times, because constructor are not designed to do so.</p>
+<pre><code>class Test {
+    private final List foo;
+
+    public Test() {
+        foo = new ArrayList();
+        foo.add(&quot;foo&quot;); // Modification-1
+    }
+
+    public void setFoo(List foo) {
+       //this.foo = foo; Results in compile time error.
+    }
+}
+</code></pre>
+<p><code>foo</code> is an <strong>instance</strong> variable. When we create <code>Test</code> class object then the instance variable <code>foo</code>, will be copied 
+inside the object of <code>Test</code> class. If we assign <code>foo</code> inside the constructor, then the compiler knows that the constructor
+will be invoked only once, so there is no problem assigning it inside the constructor.</p>
+<p>If we assign <code>foo</code> inside a method, the compiler knows that a method can be called multiple times, which means the value
+will have to be changed multiple times, which is not allowed for a <code>final</code> variable. So the compiler decides constructor
+is good choice!</p>
+<p><strong>Argument</strong></p>
+<p>Final argument cannot be changed inside the method</p>
+<pre><code class="language-java">public void methodWithFinalArguments(final int x) {
+    x=1;
+}
+</code></pre>
+<p>The final local variable x cannot be assigned. It must be blank and not using a compound assignment.</p>
+<p><strong>Static - Final</strong></p>
+<p>These fields need to be initialized upon declaration or inside static initializers.</p>
+<pre><code class="language-java">private static final List foo = new ArrayList();
+</code></pre>
+<p><code>foo</code> is now a <strong>static</strong> variable. When we create an instance of <code>Test</code> class, <code>foo</code> will not be copied to the object 
+because <code>foo</code> is static. Now <code>foo</code> is not an independent property of each object. This is a property of <code>Test</code> class. 
+But <code>foo</code> can be seen by multiple objects and if every object which is created by using the <code>new</code> keyword which will 
+ultimately invoke the <code>Test</code> constructor which changes the value at the time of multiple object creation (Remember 
+<code>static foo</code> is not copied in every object, but is shared between multiple objects)</p>
+<h2 id="synchronized"><a class="header" href="#synchronized">Synchronized</a></h2>
+<p>Race condition occurs when two or more thread attempt to update shared data. We can avoid this by synchronized thread access to the shared data, allowing only one thread to execute at any given time. </p>
+<p>Synchronized keyword can be used across - </p>
+<ul>
+<li>
+<p>instance methods</p>
+</li>
+<li>
+<p>static methods</p>
+</li>
+<li>
+<p>code blocks</p>
+</li>
+</ul>
+<p>Synchronized internally uses a monitor lock to provide synchronization. The monitors are bound to an object, and all synchronized blocks of the same object can have only one thread executing them at the same time. </p>
+<p><strong>Synchronized instance methods</strong></p>
+<pre><code class="language-java">public synchronized void synchronisedCalculate() {
+    setSum(getSum() + 1);
+}
+</code></pre>
+<p>Instance methods are <em>synchronized</em> over the instance of the class owning the method, which means only one thread per instance of the class can execute this method.</p>
+<p><strong>Synchronized static methods</strong></p>
+<pre><code class="language-java">public static synchronized void syncStaticCalculate() {
+     staticSum = staticSum + 1;
+ }
+</code></pre>
+<p>These methods are synchronized on the class objects. Since only one <em>Class</em> object exists per JVM per class, only one thread can execute inside a <em>static</em> <em>synchronized</em> method per class, irrespective of the number of instances it has.</p>
+<p><strong>Synchronized blocks within the methods</strong></p>
+<pre><code class="language-java">public void performSynchronisedTask() {
+    synchronized (this) {
+        setCount(getCount()+1);
+    }
+}
+</code></pre>
+<p>This is the monitor object. The code inside the block gets synchronized on the monitor object. Simply put, only one thread per monitor object can execute inside that block of code. If the method was <em>static</em>, we would pass the class name in place of the object reference, and the class would be a monitor for synchronization of the block:</p>
+<div style="break-before: page; page-break-before: always;"></div><p>Collection maintains complex data types. </p>
+<h3 id="linkedlist"><a class="header" href="#linkedlist">LinkedList</a></h3>
+<p>It is a doubly linked list implementation of the List and Deque interfaces. LinkedList permits null values.</p>
+<ul>
+<li>
+<p>It is not synchronized</p>
+</li>
+<li>
+<p>If a list is modified while iteration will result in ConcurrentModificationException</p>
+</li>
+</ul>
+<h3 id="comparable-and-comparator"><a class="header" href="#comparable-and-comparator">Comparable and Comparator</a></h3>
+<p>Allows for comparing custom object types that aren't directly comparable. </p>
+<pre><code class="language-java">public class Player implements Comparable&lt;Player&gt; {
+
+    // same as before
+
+    @Override
+    public int compareTo(Player otherPlayer) {
+        return Integer.compare(getRanking(), otherPlayer.getRanking());
+    }
+
+}
+</code></pre>
+<p>Sorting order is decided by the return value of compareTo() method. The method returns a number indicating whether the object being compared is less, equal, or greater than the object being passed. </p>
+<p>Comparable interface is a good choice to use for defining default ordering of that object. Comparator requires us to create separate independent comparator class for comparison logic.</p>
+<p>Java provides two interfaces to sort objects using data members of the class:</p>
+<ul>
+<li>
+<p>Comparable</p>
+</li>
+<li>
+<p>Comparator</p>
+</li>
+</ul>
+<p>A comparable object is capable of comparing itself with another object. The class itself must implements the <strong>java.lang.Comparable</strong> interface to compare its instances.</p>
+<p>Unlike Comparable, Comparator is external to the element type we are comparing. It’s a separate class. We create multiple separate classes (that implement Comparator) to compare by different members.</p>
+<p>Comparable is meant for objects with natural ordering which means the object itself must know how it is to be ordered. For example Roll Numbers of students. Whereas, Comparator interface sorting is done through a separate class.</p>
+<p>Logically, Comparable interface compares “this” reference with the object specified and Comparator in Java compares two different class objects provided.</p>
+<p>If any class implements Comparable interface in Java then collection of that object either List or Array can be sorted automatically by using Collections.sort() or Arrays.sort() method and objects will be sorted based on there natural order defined by CompareTo method.</p>
+<p>A basic differentiating feature is that using comparable we can use only one comparison. Whereas, we can write more than one custom comparators as you want for a given type, all using different interpretations of what sorting means. Like in the comparable example we could just sort by only one attribute, i.e., year but in the comparator, we were able to use different attributes like rating, name, and year as well.</p>
+<h2 id="hashset"><a class="header" href="#hashset">Hashset</a></h2>
+<p>Stores unique elements and permits null and doesn't maintain insertion order and not thread-safe. Internally a hashmap gets initialized when hashset is created. </p>
+<p>When an object is inserted into a HashSet, we first check the object's hashcode value to determined if its already available in the set. Each hashcode value corresponds to a certain bucket location which contain various elements. </p>
+<p>Objects within the same buckets will be compared using equals() method. </p>
+<h3 id="hashmap"><a class="header" href="#hashmap">Hashmap</a></h3>
+<p>For maps to work properly we need to provide an implementation of equals() and hashcode(). These methods need to be overriden only for classes that want to be used a map keys not for classes that will be used as values. </p>
+<p>Hashmap calculates the position of based on the hashcode. The keys are stored in buckets and the number of buckers is called capacity. The hashcode method is used to determin the bucket of the key where the value needs to be inserted. </p>
+<p>An important aspect of the key is that it should be immutable. </p>
+<pre><code class="language-java">public class MutableKey {
+    private String name;
+
+    // standard constructor, getter and setter
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        MutableKey that = (MutableKey) o;
+        return Objects.equals(name, that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name);
+    }
+}
+</code></pre>
+<pre><code class="language-java">MutableKey key = new MutableKey(&quot;initial&quot;);
+
+Map&lt;MutableKey, String&gt; items = new HashMap&lt;&gt;();
+items.put(key, &quot;success&quot;);
+
+key.setName(&quot;changed&quot;);
+
+assertNull(items.get(key));
+</code></pre>
+<p>We're no longer able to get the corresponding value once the key has changed, instead, <em>null</em> is returned. This is because <em>HashMap</em> is searching in the wrong bucket</p>
+<p><strong>Collisions</strong></p>
+<p>Similar keys need to have the same hashcode thus belonging to the same bucket. The complexity to find the key inside the bucket is O(N) as List is used as bucket.</p>
+<p><strong>Initializer</strong></p>
+<p>Using static initializer</p>
+<pre><code class="language-java">public static Map&lt;String, String&gt; articleMapOne;
+static {
+    articleMapOne = new HashMap&lt;&gt;();
+    articleMapOne.put(&quot;ar01&quot;, &quot;Intro to Map&quot;);
+    articleMapOne.put(&quot;ar02&quot;, &quot;Some article&quot;);
+}
+</code></pre>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="executor"><a class="header" href="#executor">Executor</a></h2>
+<p>It is an interface that represents an object to execute tasks. Depending on the implementation the task can run on a new or a current thread. </p>
+<pre><code class="language-java">public class Invoker implements Executor {
+    @Override
+    public void execute(Runnable r) {
+        r.run();
+    }
+}
+
+public void execute() {
+    Executor executor = new Invoker();
+    executor.execute( () -&gt; {
+        // task to be performed
+    });
+}
+</code></pre>
+<h3 id="executor-service"><a class="header" href="#executor-service">Executor Service</a></h3>
+<p>Provides a complete mechanism for asynchronous processing. It manages an in-memory queue and schedules tasks based on the thread availability. </p>
+<pre><code class="language-java">public class Task implements Runnable {
+    @Override
+    public void run() {
+        // task details
+    }
+}
+
+ExecutorService executor = Executors.newFixedThreadPool(10);
+executor.submit(new Task());
+</code></pre>
+<p>Executor Service can be terminated using shutdown(), this waits until all the tasks are finished. And shutdownNow() which terminates immediately. </p>
+<h3 id="scheduled-executor-service"><a class="header" href="#scheduled-executor-service">Scheduled Executor Service</a></h3>
+<p>Scheduled Executor Service can perform the tasks periodically. </p>
+<h3 id="future"><a class="header" href="#future">Future</a></h3>
+<p>Used to represent the result of the asynchronous operation. </p>
+<pre><code class="language-java">public void invoke() {
+    ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+    Future&lt;String&gt; future = executorService.submit(() -&gt; {
+        // ...
+        Thread.sleep(10000l);
+        return &quot;Hello world&quot;;
+    });
+}
+</code></pre>
+<h3 id="semaphore"><a class="header" href="#semaphore">Semaphore</a></h3>
+<p>Used for blocking thread level access to some part of the physical or logical resource. Semaphore contains permits, when a thread tries to enter the critical section it needs to check with the semaphore if a permit is available or not. </p>
+<p>Permit is acquired using tryAcquire() if not acquired the thread is not permited to the section. </p>
+<div style="break-before: page; page-break-before: always;"></div><p>Exceptions are abnormal behaviors during the execution of the program. Exceptions are just objects with all of them 
+extending from Throwable. Errors are unrecoverable conditions such as OOM, Memory leaks, etc. </p>
+<pre><code>              ---&gt; Throwable &lt;--- 
+              |    (checked)     |
+              |                  |
+              |                  |
+      ---&gt; Exception           Error
+      |    (checked)        (unchecked)
+      |
+RuntimeException
+  (unchecked)
+</code></pre>
+<p>There are three main categories of exceptions - </p>
+<ul>
+<li>
+<p>Checked exceptions</p>
+</li>
+<li>
+<p>Unchecked exceptions / Runtime Exceptions</p>
+</li>
+<li>
+<p>Errors</p>
+</li>
+</ul>
+<p>If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do 
+anything to recover from the exception, make it an unchecked exception. For example, before we open a file, we can first
+validate the input file name. If the user input file name is invalid, we can throw a custom checked exception: </p>
+<pre><code class="language-java">if (!isCorrectFileName(fileName)) {
+    throw new IncorrectFileNameException(&quot;Incorrect filename : &quot; + fileName );
+}
+</code></pre>
+<p>In this way, we can recover the system by accepting another user input file name. However, if the input file name is a 
+null pointer or it is an empty string, it means that we have some errors in the code. In this case, we should throw an 
+unchecked exception:</p>
+<pre><code class="language-java">if (fileName == null || fileName.isEmpty())  {
+    throw new NullOrEmptyException(&quot;The filename is null or empty.&quot;);
+}
+</code></pre>
+<p><strong>Checked</strong></p>
+<p>Checked exceptions are exceptions that are outside the control of our program, and the compiler requires us to handle by
+either throwing the exception up the call stack or catching it. We can use the throws keyword to declare a checked exception. </p>
+<p>Eg. IOException, ServletException. </p>
+<p><strong>Unchecked</strong></p>
+<p>Unchecked exceptions are exceptions that represents some error in the program logic. The compiler does not handle these 
+exceptions, and we do not have to declare the exception using the throws keyword. Exceptions that extends RuntimeException
+is unchecked.</p>
+<p>Eg. NullPointerException, IllegalArgumentException.</p>
+<p><strong>Errors</strong></p>
+<p>Errors are irrecoverable conditions like library incompatability, memory leaks, recursion, etc. They are also unchecked 
+exception even though it is not runtime. </p>
+<p>Eg. StackOverflowError, OutOfMemoryError.</p>
+<p><strong>Throw vs Throws</strong></p>
+<p>Throw is used to throw the exception up the call stack. Throws is a keyword used next to the method to highlight that 
+method throws an exception. </p>
+<h2 id="handling-exceptions"><a class="header" href="#handling-exceptions">Handling Exceptions</a></h2>
+<p><strong>Throws</strong></p>
+<p>Simple way is to throw it. </p>
+<pre><code class="language-java">public int getPlayerScore(String playerFile) throws FileNotFoundException {
+
+    Scanner contents = new Scanner(new File(playerFile));
+    return Integer.parseInt(contents.nextLine());
+}
+</code></pre>
+<p>FileNotFoundException is a checked exception but anyone using our method must handle it. Also, <em>parseInt</em> can throw a <em>NumberFormatException</em>, but because it is unchecked, we aren't required to handle it.</p>
+<p><strong>Try-catch</strong></p>
+<p>To handle the exception ourselves we can just use the try-catch block. </p>
+<pre><code>public int getPlayerScore(String playerFile) {
+    try {
+        Scanner contents = new Scanner(new File(playerFile));
+        return Integer.parseInt(contents.nextLine());
+    } catch (FileNotFoundException noFile) {
+        throw new IllegalArgumentException(&quot;File not found&quot;);
+    }
+}
+</code></pre>
+<p><strong>Finally</strong></p>
+<p>Finally keyword is used to execute the code regardless whether an exception occurs and not. Even if a <em>FileNotFoundException</em> is thrown up the call stack, Java will call the contents of <em>finally</em> before doing that. We can also both handle the exception <em>and</em> make sure that our resources get closed:</p>
+<pre><code class="language-java">public int getPlayerScore(String playerFile)
+  throws FileNotFoundException {
+    Scanner contents = null;
+    try {
+        contents = new Scanner(new File(playerFile));
+        return Integer.parseInt(contents.nextLine());
+    } finally {
+        if (contents != null) {
+            contents.close();
+        }
+    }
+}
+
+// exception is both handled and finally is executed
+public int getPlayerScore(String playerFile) {
+    Scanner contents;
+    try {
+        contents = new Scanner(new File(playerFile));
+        return Integer.parseInt(contents.nextLine());
+    } catch (FileNotFoundException noFile ) {
+        logger.warn(&quot;File not found, resetting score.&quot;);
+        return 0; 
+    } finally {
+        try {
+            if (contents != null) {
+                contents.close();
+            }
+        } catch (IOException io) {
+            logger.error(&quot;Couldn't close the reader!&quot;, io);
+        }
+    }
+}
+</code></pre>
+<p><strong>try-with-resources</strong></p>
+<p>It allows us to declare resources to be used in a try-block with assurance that the resources will be closed after the execution of the block. Then, we can add the finally block to do other type of clean up. </p>
+<pre><code class="language-java">public int getPlayerScore(String playerFile) {
+    try (Scanner contents = new Scanner(new File(playerFile))) {
+      return Integer.parseInt(contents.nextLine());
+    } catch (FileNotFoundException e ) {
+      logger.warn(&quot;File not found, resetting score.&quot;);
+      return 0;
+    }
+}
+</code></pre>
+<p>Using multiple resources in:</p>
+<pre><code class="language-java">try (Scanner scanner = new Scanner(new File(&quot;testRead.txt&quot;));
+    PrintWriter writer = new PrintWriter(new File(&quot;testWrite.txt&quot;))) {
+    while (scanner.hasNext()) {
+    writer.print(scanner.nextLine());
+    }
+}
+</code></pre>
+<p>Using custom autocloseable resource:</p>
+<pre><code class="language-java">public class MyResource implements AutoCloseable {
+    @Override
+    public void close() throws Exception {
+        System.out.println(&quot;Closed MyResource&quot;);
+    }
+}
+</code></pre>
+<p>We can also use final variables inside the try-with-resource block.</p>
+<h2 id="throwing-exceptions"><a class="header" href="#throwing-exceptions">Throwing Exceptions</a></h2>
+<p>If we do not want to handle the exceptions or want to generate our own exceptions for others to handle we can use the throw keyword. </p>
+<pre><code class="language-java">public class TimeoutException extends Exception {
+    public TimeoutException(String message) {
+        super(message);
+    }
+}
+</code></pre>
+<p><strong>Checked Exception</strong></p>
+<p>Throwing a checked exception is as simple as using the throw keyword</p>
+<pre><code class="language-java">public List&lt;Player&gt; loadAllPlayers(String playersFile) throws TimeoutException {
+    while ( !tooLong ) {
+        // ... potentially long operation
+    }
+    throw new TimeoutException(&quot;This operation took too long&quot;);
+}
+</code></pre>
+<p><strong>Unchecked Exception</strong></p>
+<p>We do not have to mark the method for unchecked exception. </p>
+<pre><code class="language-java">public List&lt;Player&gt; loadAllPlayers(String playersFile) {
+    if(!isFilenameValid(playersFile)) {
+        throw new IllegalArgumentException(&quot;Filename isn't valid!&quot;);
+    }
+}
+</code></pre>
+<p>If the only possible exception that a given block of code could raise are unchecked exceptions then we can catch and rethrow Throwable or Exception without adding the method signature. </p>
+<pre><code class="language-java">public List&lt;Player&gt; loadAllPlayers(String playersFile) {
+    try {
+        throw new NullPointerException();
+    } catch (Throwable t) {
+        throw t;
+    }
+}
+</code></pre>
+<h2 id="exception-handling-and-overriding"><a class="header" href="#exception-handling-and-overriding">Exception Handling and Overriding</a></h2>
+<ul>
+<li>If SuperClass does not declare an exception, then the SubClass can only declare unchecked exceptions, but not the checked exceptions.</li>
+<li>If SuperClass declares an exception, then the SubClass can only declare the same or child exceptions of the exception declared by the SuperClass and any new Runtime Exceptions, just not any new checked exceptions at the same level or higher.</li>
+<li>If SuperClass declares an exception, then the SubClass can declare without exception.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><p>Using generics methods can be written with single method declaration and can be called for different types.</p>
+<h3 id="bounded-generics"><a class="header" href="#bounded-generics">Bounded Generics</a></h3>
+<p>Ability to restrict types of a generic method to its type and all its subclasses (upperbound) or its superclasses (lower bound). For upperbound we use extends keyword after the type followed by upperbound.</p>
+<pre><code class="language-java">public &lt;T extends Number&gt; List&lt;T&gt; fromArrayToList(T[] a) {
+    ...
+}
+</code></pre>
+<h3 id="multiple-bounds"><a class="header" href="#multiple-bounds">Multiple Bounds</a></h3>
+<p>We can allow multiple bounds</p>
+<pre><code class="language-java">&lt;T extends Number &amp; Comparable&gt;
+</code></pre>
+<h3 id="wildcards"><a class="header" href="#wildcards">Wildcards</a></h3>
+<p>Wildcards are represented using ? and are used to mark unknown tyes. </p>
+<h3 id="type-erasure"><a class="header" href="#type-erasure">Type Erasure</a></h3>
+<p>Type erasure is the process of removing all type parameters and replacing with their bounds or Object type in case if the types are unbound. This way, the bytecode after compilation contains only normal classes, interfaces and methods, ensuring that no new types are produced</p>
+<pre><code class="language-java">public &lt;T&gt; List&lt;T&gt; genericMethod(List&lt;T&gt; list) {
+    return list.stream().collect(Collectors.toList());
+}
+</code></pre>
+<p>With type erasure, the unbounded type <em>T</em> is replaced with <em>Object</em>:</p>
+<pre><code class="language-java">// for illustration
+public List&lt;Object&gt; withErasure(List&lt;Object&gt; list) {
+    return list.stream().collect(Collectors.toList());
+}
+
+// which in practice results in
+public List withErasure(List list) {
+    return list.stream().collect(Collectors.toList());
+}
+</code></pre>
+<p>If the type is bounded, the type will be replaced by the bound at compile time:</p>
+<pre><code class="language-java">public &lt;T extends Building&gt; void genericMethod(T t) {
+    ...
+}
+
+// and would change after compilation:
+
+public void genericMethod(Building t) {
+    ...
+}
+
+</code></pre>
+<p>Generics are a compile-time feature, meaning the type parameter is erased and all generic types are implemented as type <em>Object</em>.</p>
+<pre><code class="language-java">List&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+list.add(17);
+</code></pre>
+<p>Therefore, type parameters must be convertible to <em>Object</em>. <strong>Since primitive types don't extend <em>Object</em>, we can't use them as type parameters.</strong> However, Java provides boxed types for primitives, along with autoboxing and unboxing to unwrap them:</p>
+<div style="break-before: page; page-break-before: always;"></div><p>Scanner is a simple text scanner that can parse primitive types and string. Buffered Reader on the other hand reads text from character input stream and is more efficient</p>
+<h3 id="bufferedreader"><a class="header" href="#bufferedreader">BufferedReader</a></h3>
+<p>It buffers the character in order to enable efficient reading of text. It can be used to read text from any kind of input source. It also minimizes IO operations by reading chunks of characters and store them in an internal buffer. While the buffer has data, the reader will read from it instead of directly from the underlying stream.</p>
+<p>In general, each read request made by a Reader causes a corresponding read request to be made of the underlying character or byte stream. It is therefore advisable to wrap a BufferedReader around any Reader whose read() operations may be costly, such as FileReaders and InputStreamReaders</p>
+<p>BuferredReader expects a Reader in its constructor to extend the reader functionaility.</p>
+<pre><code class="language-java">BufferedReader reader = 
+  new BufferedReader(new FileReader(&quot;src/main/resources/input.txt&quot;));
+</code></pre>
+<p>But, if buffering doesn't matter to us we could just use a <em>FileReader</em> directly:</p>
+<pre><code class="language-java">FileReader reader = 
+  new FileReader(&quot;src/main/resources/input.txt&quot;);
+</code></pre>
+<p><strong>Using a stream</strong></p>
+<p>BufferedReader can take any kind of input stream as an underlying source. We can do it using <em>InputStreamReader</em> and wrapping it in the constructor:</p>
+<pre><code class="language-java">BufferedReader reader = 
+  new BufferedReader(new InputStreamReader(System.in));
+</code></pre>
+<h3 id="bufferedreader-vs-scanner"><a class="header" href="#bufferedreader-vs-scanner">BufferedReader vs Scanner</a></h3>
+<ul>
+<li>
+<p>BR is synchronized and thread-safe</p>
+</li>
+<li>
+<p>BR can change the size of the buffer, scanner doesn't </p>
+</li>
+<li>
+<p>BR has larger default buffer size compared to scanner</p>
+</li>
+<li></li>
+</ul>
+<h3 id="reading-files"><a class="header" href="#reading-files">Reading Files</a></h3>
+<p><strong>BufferedReader</strong></p>
+<p>To read a large file we can use the BufferedReader.</p>
+<pre><code class="language-java">@Test
+public void whenReadWithBufferedReader_thenCorrect()
+  throws IOException {
+     String expected_value = &quot;Hello, world!&quot;;
+     String file =&quot;src/test/resources/fileTest.txt&quot;;
+
+     BufferedReader reader = new BufferedReader(new FileReader(file));
+     String currentLine = reader.readLine();
+     reader.close();
+
+    assertEquals(expected_value, currentLine);
+}
+</code></pre>
+<h3 id="writing-files"><a class="header" href="#writing-files">Writing Files</a></h3>
+<p>We'll make use of <em>BufferedWriter</em>, <em>PrintWriter</em>, <em>FileOutputStream</em>, <em>DataOutputStream</em>, <em>RandomAccessFile</em>, <em>FileChannel</em></p>
+<div style="break-before: page; page-break-before: always;"></div><p>Lambda expressions are functional interfaces. An interface with single abstract method is called functional interface (java.lang.Runnable). They provide below functionalities.</p>
+<ul>
+<li>Use functions as method arguments</li>
+<li>A function that can be created without belonging to any class.</li>
+<li>A lambda expression can be passed around as if it was an object and executed on demand.</li>
+</ul>
+<h3 id="stream"><a class="header" href="#stream">Stream</a></h3>
+<p>Stream API is used to process collections of objects. Stream package is for processing sequence of elements. Stream can 
+be created from collections or array using stream() and of() methods. </p>
+<pre><code class="language-java">String[] arr = new String[]{&quot;a&quot;, &quot;b&quot;, &quot;c&quot;};
+Stream&lt;String&gt; stream = Arrays.stream(arr);
+stream = Stream.of(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;);
+</code></pre>
+<h3 id="multithreading"><a class="header" href="#multithreading">Multithreading</a></h3>
+<p>Stream allows for easy multithreading using parallelStream()</p>
+<pre><code class="language-java">list.parallelStream().forEach(element -&gt; doWork(element));
+</code></pre>
+<h3 id="operations"><a class="header" href="#operations">Operations</a></h3>
+<p>Operations are divided into intermediate operations and terminal operations. Former allows chaining.</p>
+<pre><code class="language-java">long count = list.stream().distinct().count();
+</code></pre>
+<p><strong>Filtering</strong></p>
+<p>Allows for filtering elements using a Predicate.</p>
+<p><strong>Mapping</strong></p>
+<p>Collect a stream by applying special function to them and collect these new elements. </p>
+<p><strong>Matching</strong></p>
+<p>Allows for validating elements based on some predicate. </p>
+<pre><code class="language-java">boolean isValid = list.stream().anyMatch(element -&gt; element.contains(&quot;h&quot;)); // true
+boolean isValidOne = list.stream().allMatch(element -&gt; element.contains(&quot;h&quot;)); // false
+boolean isValidTwo = list.stream().noneMatch(element -&gt; element.contains(&quot;h&quot;)); // false
+</code></pre>
+<p><strong>Reducing</strong></p>
+<p>Allows for reducing a sequence of elements to some value according to a specific function. </p>
+<p><strong>Collecting</strong></p>
+<p>Allows for collecting the stream to a Collection or Map.</p>
+<pre><code class="language-java">List&lt;String&gt; resultList 
+  = list.stream().map(element -&gt; element.toUpperCase()).collect(Collectors.toList());
+</code></pre>
+<h3 id="stream-reference"><a class="header" href="#stream-reference">Stream Reference</a></h3>
+<p>Stream can be reference as long as intermediate operations are called once a terminal operation is called stream cannot be reused. </p>
+<pre><code class="language-java">Stream&lt;String&gt; stream = 
+  Stream.of(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;).filter(element -&gt; element.contains(&quot;b&quot;));
+Optional&lt;String&gt; anyElement = stream.findAny();
+Optional&lt;String&gt; firstElement = stream.findFirst(); // IllegalStateException
+</code></pre>
+<p>Intermediate operations return a new modified stream.  stream by itself is worthless; the user is interested in the result of the terminal operation, which can be a value of some type or an action applied to every element of the stream. We can only use one terminal operation per stream.</p>
+<p>Stream intermediate operations are lazy invocations and they will be invoked only if it is necessary for the terminal operation execution. </p>
+<pre><code class="language-java">List&lt;String&gt; list = Arrays.asList(“abc1”, “abc2”, “abc3”);
+counter = 0;
+Stream&lt;String&gt; stream = list.stream().filter(element -&gt; {
+    wasCalled();
+    return element.contains(&quot;2&quot;);
+});
+</code></pre>
+<h2 id="functional-interfaces"><a class="header" href="#functional-interfaces">Functional Interfaces</a></h2>
+<p>An interface with a single abstract method is a functional interface. Its implementation may be treated as lambda expressions. </p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="object"><a class="header" href="#object">Object</a></h1>
+<p>Objects consisting of state and behavior. They store state in fields and exposes behavior using methods. They need to be
+declared and initialized to be created. Objects are stored in heap memory. Heap is a large pool of  unused memory allocated 
+for the application.</p>
+<p>Object created needs to be destroyed. GC is a program for automatic memory management in the Java platform. To destroy 
+objects -</p>
+<ul>
+<li>They should no longer have any reference pointing to it</li>
+<li>All reference point to the object should be out of scope</li>
+</ul>
+<p><strong>Initialization</strong></p>
+<p>Java has empty initializers with no associated name or data type. These initializers are static and instance. Initialization are done in order -</p>
+<ul>
+<li>
+<p>Static variables and static initializers</p>
+</li>
+<li>
+<p>Instance variables and instance initializers</p>
+</li>
+<li>
+<p>Constructors</p>
+</li>
+</ul>
+<pre><code class="language-java">{
+    id = 0;
+}
+</code></pre>
+<p>Static intializers are used to intialize static fields.</p>
+<pre><code class="language-java">private static String forum;
+static {
+    forum = &quot;Java&quot;;
+}
+</code></pre>
+<p><strong>Declaration</strong></p>
+<p>Declaration is the process of defining the variable. Initialization is about assigning a value to a variable</p>
+<p>Primitive types hold value in-memory where the variable is allocated. Reference types hold reference to objects (instances of the class) instead of the object they are referring to.</p>
+<pre><code class="language-java">@Test
+public void whenIntializedWithNew_thenInstanceIsNotNull() {
+    User user = new User();
+
+    assertThat(user).isNotNull();
+}
+</code></pre>
+<p>Object creation is bit more complex. Object initilization occurs using the new keyword, this invokes the constructor and initializes the object in memory.</p>
+<ul>
+<li>
+<p>New keyword is responsible for allocating memory for the new object through a constructor</p>
+</li>
+<li>
+<p>Constructor represents the main property of the object and is used to initialize instance variables. Class can have many constructors as long as the parameter (overloading)</p>
+</li>
+</ul>
+<p><strong>Other methods for creating objects</strong></p>
+<p>Objects can be created using reflection, cloning, and serialization. </p>
+<ul>
+<li>
+<p>Reflection is a mechanism to inspect classes, fields, and methods at run-time</p>
+</li>
+<li>
+<p>Cloning is a way to create exact copy of the object using the clone() and clonable interface.</p>
+</li>
+</ul>
+<h1 id="class"><a class="header" href="#class">Class</a></h1>
+<p>Class is a blueprint of certain type containing state and behavior. Objects of a class is called instances. Every class has an empty constructor by default. An empty constructor only initializes the fields with default values.</p>
+<p>An object is a living instance of a class and they maintain the state and behavior during runtime. Class constructor doesn't initialize the field it merely declares</p>
+<pre><code class="language-java">class BankAccount {
+    String name;
+    LocalDateTime opened;
+    double balance;
+
+    @Override
+    public String toString() {
+        return String.format(&quot;%s, %s, %f&quot;, 
+          this.name, this.opened.toString(), this.balance);
+    }
+}
+</code></pre>
+<pre><code class="language-java">BankAccount account = new BankAccount();
+account.toString();
+</code></pre>
+<pre><code class="language-java">java.lang.NullPointerException
+    at com.baeldung.constructors.BankAccount.toString(BankAccount.java:12)
+    at com.baeldung.constructors.ConstructorUnitTest
+      .givenNoExplicitContructor_whenUsed_thenFails(ConstructorUnitTest.java:23)
+</code></pre>
+<p><strong>Concrete</strong></p>
+<ul>
+<li>
+<p>Concrete classes are class that we can create instance of using the new keyword. Examples of concrete classes are HashMap, ArrayList, etc.Not all classes are concrete, Java also has abstract classes - abstract, interface.</p>
+</li>
+<li>
+<p>Class is a blueprint for an object and Interface is a blueprint for a class. Concrete classes can implement interfaces.</p>
+</li>
+<li>
+<p>Primitive types hold the value in-memory where the variable is allocated. References don't hold the value of the object they refer to.</p>
+</li>
+</ul>
+<p><strong>Final Variables</strong></p>
+<p>They can only be initialized within the constructor of the class and are immutable. If we create multiple constructor within the class, then they need to be initialized under each constructor.</p>
+<p><strong>This and Super</strong></p>
+<p>This is used to refer the current object. It is typically used in constructor to differentiate the local variable with the parameters. </p>
+<p>Super is used to access the parent class. It can be used to call the parent constructor. It can be used to access the parent constructor's variables.</p>
+<h3 id="abstract"><a class="header" href="#abstract">Abstract</a></h3>
+<p>Java provides a mechanism to achieve abstraction, polumorphism, inheritance has can be achieved using abstract and interface keyword. Abstract class enables data encapsulation and polymorphism. It doesn't allow multiple inheritance.</p>
+<p>Properties of abstraction using abstract keyword -</p>
+<ul>
+<li>
+<p>It is defined using the abstract keyword preceding the class keyword</p>
+</li>
+<li>
+<p>Abstract class can be subclassed but cannot be instantiated. If a class has one abstract method, then the entire class should be abstracted. This also means an abstract class can have concrete or abstract methods.</p>
+</li>
+<li>
+<p>Subclass that extend the abstract class must implement all the abstract methods or be an abstract class itself</p>
+</li>
+</ul>
+<pre><code class="language-java">public abstract class BoardGame {
+
+    //... field declarations, constructors
+
+    public abstract void play();
+
+    //... concrete methods
+}
+</code></pre>
+<pre><code class="language-java">public class Checkers extends BoardGame {
+
+    public void play() {
+        //... implementation
+    }
+}
+</code></pre>
+<p>When to use abstract classes -</p>
+<ul>
+<li>
+<p>Abstraction can be used to encapsulate multiple functionality into one place and can be reused across other places</p>
+</li>
+<li>
+<p>Abstraction allows for lazy implementation, where the blueprint is defined and the implementation is done more concretely someplace else</p>
+</li>
+<li>
+<p>Concrete classes have common functionality that can be used with protected access modifiers</p>
+</li>
+</ul>
+<p>Properties of abstraction using interface keyword -</p>
+<ul>
+<li>An interface is a blue print for a class. Interface cannot be instantiated using the new keyword but concrete class can implement these methods. Eg Map, List, Set</li>
+</ul>
+<pre><code class="language-java">interface Mogul {
+    void name();
+}
+</code></pre>
+<ul>
+<li>Abstract class can have both implemented and unimplemented methods. Eg. AbstractList, AbstractSet</li>
+</ul>
+<h3 id="interfaces"><a class="header" href="#interfaces">Interfaces</a></h3>
+<p>Interfaces is used to implement polymorphism and multiple inheritance. They help add additional functionality to 
+unrelated classes. For instance Comparable, Comparator, and Cloneable are interfaces that can be implemented by unrelated 
+classes.</p>
+<p><strong>Default Methods</strong></p>
+<p>Conceptually the main purpose of default methods in interfaces is backward compatibility.</p>
+<p><strong>Multiple Inheritance</strong></p>
+<p>Java primarily supports single inheritance. Using interfaces we can implement multiple interfaces.</p>
+<pre><code class="language-java">public interface Transform {
+    void transform();
+}
+
+public interface Fly {
+    void fly();
+}
+
+public class Car implements Fly, Transform {
+
+    @Override
+    public void fly() {
+        System.out.println(&quot;I can Fly!!&quot;);
+    }
+
+    @Override
+    public void transform() {
+        System.out.println(&quot;I can Transform!!&quot;);
+    }
+}
+</code></pre>
+<p>In order to enable multiple inheritance through interfaces we have to remember a few rules.</p>
+<ul>
+<li>
+<p>Interface extending another interface</p>
+</li>
+<li>
+<p>Abstract class implementing interfaces</p>
+</li>
+</ul>
+<h1 id="object-oriented-concepts"><a class="header" href="#object-oriented-concepts">Object-Oriented Concepts</a></h1>
+<p>Data abstraction is the ability to view only the required characteristics of the object. Encapsulation is the ability to hide behavior under single unit typically a class. It is a protective shield that prevents the data from being accessed by the code outside this shield. Encapsulation is implemented using access modifiers, and abstraction is implemented using abstract and interface classes.</p>
+<h3 id="polymorphism"><a class="header" href="#polymorphism">Polymorphism</a></h3>
+<p>Ability for an object to take different forms during runtime. It is achieved through overriding behavior of a specific object.</p>
+<pre><code class="language-java">public interface Shape {
+    String name();
+}
+</code></pre>
+<pre><code>public class Circle implements Shape {
+
+    @Override
+    public String name() {
+        return &quot;Circle&quot;;
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class Square implements Shape {
+
+    @Override
+    public String name() {
+        return &quot;Square&quot;;
+    }
+}
+</code></pre>
+<pre><code class="language-java">List&lt;Shape&gt; shapes = new ArrayList&lt;&gt;();
+Shape circleShape = new Circle();
+Shape squareShape = new Square();
+
+shapes.add(circleShape);
+shapes.add(squareShape);
+
+for (Shape shape : shapes) {
+    System.out.println(shape.name());
+}
+</code></pre>
+<h3 id="inheritance"><a class="header" href="#inheritance">Inheritance</a></h3>
+<p>Inheritance enables us to reuse existing code or extending an existing type. A call can inherit another class and multiple inheritance. </p>
+<p>When a class inherits another class or interface, it not only inherits the members but also their type.</p>
+<pre><code class="language-java">public interface Car {
+
+}
+
+public class Skoda implements Car {
+
+}
+
+
+public class Employee {
+    private String name;
+    private Car car;
+
+    public Employee(Car car) {
+        this.car = car
+    }
+}
+
+// Armored Car is a subclass of Car
+Employee e1 = new Employee(new ArmoredCar());
+</code></pre>
+<p>If both the superclass and subclass define a variable or method with the same name, then it needs to be prefixed with this or super.</p>
+<p>If both the superclass and subclass define a static variable or method with the same name, then they need to be explicity called using the class name and not super().</p>
+<pre><code class="language-java">public class Car {
+    public static String msg() {
+        return &quot;Car&quot;;
+    }
+}
+
+public class ArmoredCar extends Car {
+    public static String msg() {
+        return super.msg(); // this won't compile.
+    }
+}
+
+public class ArmoredCar extends Car {
+    public static String msg() {
+        return Car.msg(); // this will compile.
+    }
+}
+</code></pre>
+<p>Or we can call them explicity. </p>
+<pre><code class="language-java">public class Car {
+    public static String msg() {
+        return &quot;Car&quot;;
+    }
+}
+
+public class ArmoredCar extends Car {
+    public static String msg() {
+        return &quot;ArmoredCar&quot;;
+    }
+}
+
+Car first = new ArmoredCar();
+ArmoredCar second = new ArmoredCar();
+</code></pre>
+<p>For the above code, <em>first.msg()</em> will output “Car*“* and <em>second.msg()</em> will output “ArmoredCar”. The static message that is called depends on the type of the variable used to refer to <em>ArmoredCar</em> instance.</p>
+<p><strong>Class Inheritance</strong></p>
+<ul>
+<li>
+<p>Inheritance using a class. Classes only support single inheritance. A subclass inherits all the non-static protected and public methods from the superclass. </p>
+</li>
+<li>
+<p>Default access modifiers can inherit only within the same package. Parent members can be accessed directly by the subclass.</p>
+</li>
+</ul>
+<p><strong>Interface Inheritance</strong></p>
+<p>Class can inherit multiple interfaces. </p>
+<pre><code class="language-java">public interface Floatable {
+    void floatOnWater();
+}
+</code></pre>
+<pre><code class="language-java">public interface Flyable {
+    void fly();
+}
+</code></pre>
+<pre><code class="language-java">public class ArmoredCar extends Car implements Floatable, Flyable{
+    public void floatOnWater() {
+        System.out.println(&quot;I can float!&quot;);
+    }
+
+    public void fly() {
+        System.out.println(&quot;I can fly!&quot;);
+    }
+}
+</code></pre>
+<p>In Java 8, with default methods if a class implements multiple interfaces with same method signature, the child class would inherit separate implementation. </p>
+<pre><code class="language-java">public interface Floatable {
+    default void repair() {
+        System.out.println(&quot;Repairing Floatable object&quot;);    
+    }
+}
+</code></pre>
+<pre><code class="language-java">public interface Flyable {
+    default void repair() {
+        System.out.println(&quot;Repairing Flyable object&quot;);    
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class ArmoredCar extends Car implements Floatable, Flyable {
+    // this won't compile
+}
+</code></pre>
+<p>In case on wants to implement both interfaces, we will have to override the methods. If the interfaces in the preceding examples define variables with the same name, say <em>duration</em>, we can't access them without preceding the variable name with the interface name:</p>
+<pre><code class="language-java">public interface Floatable {
+    int duration = 10;
+}
+
+public interface Flyable {
+    int duration = 20;
+}
+
+public class ArmoredCar extends Car implements Floatable, Flyable {
+
+    public void aMethod() {
+        System.out.println(duration); // won't compile
+        System.out.println(Floatable.duration); // outputs 10
+        System.out.println(Flyable.duration); // outputs 20
+    }
+}
+</code></pre>
+<p><strong>Interface extending multiple interfaces</strong></p>
+<p>Interface can extend multiple interfaces by using extends keyword.</p>
+<pre><code class="language-java">public interface Floatable {
+    void floatOnWater();
+}
+
+interface interface Flyable {
+    void fly();
+}
+
+public interface SpaceTraveller extends Floatable, Flyable {
+    void remoteControl();
+}
+</code></pre>
+<h3 id="overloading-and-overriding"><a class="header" href="#overloading-and-overriding">Overloading and Overriding</a></h3>
+<p><strong>Overloading</strong></p>
+<p>Overloading is the ability to create multiple methods with the same name. This is achieved through a process called static binding which is the ability to associate method calls to the correct method (in the method body). In case of overloading binding is done in compile time hence it is also called as static binding. The compiler simply checks the method signature. </p>
+<p>Java allows method overloading in the following ways - </p>
+<ul>
+<li>Different number of arguments</li>
+</ul>
+<pre><code class="language-java">public class Multiplier {
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public int multiply(int a, int b, int c) {
+        return a * b * c;
+    }
+}
+</code></pre>
+<ul>
+<li>Different argument types</li>
+</ul>
+<pre><code class="language-java">public class Multiplier {
+
+    public int multiply(int a, int b) {
+        return a * b;
+    }
+
+    public double multiply(double a, double b) {
+        return a * b;
+    }
+}
+</code></pre>
+<ul>
+<li>Two methods that differ only in their return types is not possible</li>
+</ul>
+<pre><code class="language-java">public int multiply(int a, int b) { 
+    return a * b; 
+}
+
+public double multiply(int a, int b) { 
+    return a * b; 
+}
+</code></pre>
+<p><strong>Overriding</strong></p>
+<p>Overriding is the ability extend implementation in subclasses for methods defined in the parent class. Overriding is more a consequence of inheritance where overloading need not have inheritance. </p>
+<p>Since overriding can only be implemented using inheritance where there is a hierarchy of base and subtypes. The compiler cannot determine at compile time what method to call. This happens only at runtime and this called as dynamic binding. </p>
+<pre><code class="language-java">public class Vehicle {
+
+    public String accelerate(long mph) {
+        return &quot;The vehicle accelerates at : &quot; + mph + &quot; MPH.&quot;;
+    }
+
+    public String stop() {
+        return &quot;The vehicle has stopped.&quot;;
+    }
+
+    public String run() {
+        return &quot;The vehicle is running.&quot;;
+    }
+}
+</code></pre>
+<pre><code class="language-java">public class Car extends Vehicle {
+
+    @Override
+    public String accelerate(long mph) {
+        return &quot;The car accelerates at : &quot; + mph + &quot; MPH.&quot;;
+    }
+}
+</code></pre>
+<p>It's valid to make an overridden method to accept arguments of different types and return a different type as well, but with full adherence to these rules:</p>
+<ul>
+<li>If a method in the base class takes argument(s) of a given type, the overridden method should take the same type or a supertype (a.k.a. <em>contravariant</em> method arguments)</li>
+<li>If a method in the base class returns <em>void</em>, the overridden method should return <em>void</em></li>
+<li>If a method in the base class returns a primitive, the overridden method should return the same primitive</li>
+<li>If a method in the base class returns a certain type, the overridden method should return the same type or a subtype (a.k.a. <em>covariant</em> return type)</li>
+<li>If a method in the base class throws an exception, the overridden method must throw the same exception or a subtype of the base class exception</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
