@@ -1,11 +1,6 @@
-Java platforms has tools and libraries necessary for developing Java based application. 
+# Basics
 
-JVM and JRE are core components of JDK. JVM is the run-time engine to run the Java application. JVM calls the main method. 
-Java applications are called WORA (write once read anywhere). A programmer can develop Java code on one system and expect
-to run on any other environment. When we compile a .java file, a .class file gets created by the Java compiler. The *.class* 
-files contains byte-code with the same class names present in *.java*. 
-
-These class files go through various stages -
+Java platform has tools and libraries for developing Java based application. JVM and JRE are core components of JDK. JVM is the run-time engine to run the Java application. JVM calls the main method. Java applications are called WORA (write once read anywhere). A programmer can develop Java code on one system and expect to run on any other environment. When we compile a .java file, a .class file gets created by the Java compiler. The *.class* files contains byte-code with the same class names present in *.java*. These class files go through various stages -
 
 ![](https://media.geeksforgeeks.org/wp-content/uploads/CommonArticleDesign20-min-1.png)
 

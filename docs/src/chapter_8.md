@@ -1,70 +1,14 @@
-# Object
+# Object Oriented Programming
 
-Objects consisting of state and behavior. They store state in fields and exposes behavior using methods. They need to be
-declared and initialized to be created. Objects are stored in heap memory. Heap is a large pool of  unused memory allocated 
-for the application.  
+The main oops concepts are as follows: class / object, abstraction, inheritance, and polymorphism. 
 
-Object created needs to be destroyed. GC is a program for automatic memory management in the Java platform. To destroy 
-objects -
-- They should no longer have any reference pointing to it
-- All reference point to the object should be out of scope
+## Class / Object
 
-**Initialization**
+A class is a blueprint from which individual objects are created. It helps define all the internal objects that hold the object state. An object is an instance of a class. It contains state and behavior, using fields and methods. Objects are stored in heap memory which is a large pool of unused memory allocated for the application. Once the objects are created, it needs to be destroyed. GC is a program for automatic memory management in the Java platform. To destroy objects -
 
-Java has empty initializers with no associated name or data type. These initializers are static and instance. Initialization are done in order -
-
-- Static variables and static initializers
-
-- Instance variables and instance initializers
-
-- Constructors
-
-```java
-{
-    id = 0;
-}
-```
-
-Static intializers are used to intialize static fields.
-
-```java
-private static String forum;
-static {
-    forum = "Java";
-}
-```
-
-**Declaration**
-
-Declaration is the process of defining the variable. Initialization is about assigning a value to a variable
-
-Primitive types hold value in-memory where the variable is allocated. Reference types hold reference to objects (instances of the class) instead of the object they are referring to.
-
-```java
-@Test
-public void whenIntializedWithNew_thenInstanceIsNotNull() {
-    User user = new User();
-
-    assertThat(user).isNotNull();
-}
-```
-
-Object creation is bit more complex. Object initilization occurs using the new keyword, this invokes the constructor and initializes the object in memory.
-
-* New keyword is responsible for allocating memory for the new object through a constructor
-
-* Constructor represents the main property of the object and is used to initialize instance variables. Class can have many constructors as long as the parameter (overloading)
-
-**Other methods for creating objects**
-
-Objects can be created using reflection, cloning, and serialization. 
-
-* Reflection is a mechanism to inspect classes, fields, and methods at run-time
-
-* Cloning is a way to create exact copy of the object using the clone() and clonable interface.
-
-
-# Class
+- Objects should no longer have any reference pointing to it
+- And, all reference point to the object should be out of scope
+ 
 
 Class is a blueprint of certain type containing state and behavior. Objects of a class is called instances. Every class has an empty constructor by default. An empty constructor only initializes the fields with default values.
 
@@ -96,30 +40,37 @@ java.lang.NullPointerException
       .givenNoExplicitContructor_whenUsed_thenFails(ConstructorUnitTest.java:23)
 ```
 
-**Concrete**
-
-- Concrete classes are class that we can create instance of using the new keyword. Examples of concrete classes are HashMap, ArrayList, etc.Not all classes are concrete, Java also has abstract classes - abstract, interface.
-
-- Class is a blueprint for an object and Interface is a blueprint for a class. Concrete classes can implement interfaces.
-
-- Primitive types hold the value in-memory where the variable is allocated. References don't hold the value of the object they refer to.
-
-**Final Variables**
+### Final Variables
 
 They can only be initialized within the constructor of the class and are immutable. If we create multiple constructor within the class, then they need to be initialized under each constructor.
 
-**This and Super**
+### This and Super
 
+This and Super are keywords that is used to access super classes or parent classes. Super is used on to access the instance variables and methods of parent class. This is used to refer the current object. It is typically used in constructor to differentiate the local variable with the parameters. 
 
-This is used to refer the current object. It is typically used in constructor to differentiate the local variable with the parameters. 
+## Encapsulation
 
-Super is used to access the parent class. It can be used to call the parent constructor. It can be used to access the parent constructor's variables.
+Encapsulatio is wrapping data and code into a single unit (typically a class). In encapsulation, the variables of are hidden from other classes and can be accessed only through the methods of their current class. Therefore, it is also known as data hiding. It is implemented using access modifiers.
+
+### Public
+
+The public access modifier makes the class, method, or field accessible from any other class everywhere, whether within the same package or in others. It provides the widest scope among all access modifiers.
+
+### Private
+
+The private access modifier is the most restrictive. Variables and methods marked as private can be accessed only within the class in which they are declared. They are not visible to subclasses or any external classes.
+
+### Protected
+
+The protected access modifier allows the variable or method to be accessed within the same package or by subclasses in other packages. It is more accessible than default and private but more restrictive than public.
+
+## Abstraction
+
+Data abstraction is the ability to view only the required characteristics of the object. Data abstraction is implemented using abstract and interface classes
 
 ### Abstract
 
-Java provides a mechanism to achieve abstraction, polumorphism, inheritance has can be achieved using abstract and interface keyword. Abstract class enables data encapsulation and polymorphism. It doesn't allow multiple inheritance.
-
-Properties of abstraction using abstract keyword -
+Abstract class enables data encapsulation and polymorphism. It doesn't allow multiple inheritance. Properties of abstraction using abstract keyword -
 
 * It is defined using the abstract keyword preceding the class keyword
 
@@ -169,54 +120,46 @@ interface Mogul {
 
 ### Interfaces
 
-Interfaces is used to implement polymorphism and multiple inheritance. They help add additional functionality to 
-unrelated classes. For instance Comparable, Comparator, and Cloneable are interfaces that can be implemented by unrelated 
-classes.
+A class is a blueprint for an object, and an interface is a blueprint for a class. Class is said to be concrete if it can be created using new operator. Concrete classes can implement interfaces. Not all classes are concrete, Java also has abstract classes - abstract, interface.
 
-**Default Methods**
+Interface is a blueprint for a class. It can contain constants, method signatures, default method, static method, and nested types. Method body exist only for default methods and static methods. Interface cannot be instantiated they can only be implemented by classes or extended by other interfaces. Following are the major purpose for interfaces:
 
-Conceptually the main purpose of default methods in interfaces is backward compatibility.
+1. To achieve abstraction
+2. To achieve multiple inheritance
+3. To achieve loose coupling
 
-**Multiple Inheritance**
+```
+public interface Animal {
+    // This is an abstract method
+    public void eat();
 
-Java primarily supports single inheritance. Using interfaces we can implement multiple interfaces.
-
-```java
-public interface Transform {
-    void transform();
-}
-
-public interface Fly {
-    void fly();
-}
-
-public class Car implements Fly, Transform {
-
-    @Override
-    public void fly() {
-        System.out.println("I can Fly!!");
+    // This is a default method
+    default void breathe() {
+        System.out.println("Breathing...");
     }
-
-    @Override
-    public void transform() {
-        System.out.println("I can Transform!!");
+    
+    // This is a static method
+    static int getLegCount() {
+        return 4; // Most animals have 4 legs
     }
 }
 ```
 
-In order to enable multiple inheritance through interfaces we have to remember a few rules.
+### Static Methods
 
-- Interface extending another interface
+These can be defined in interfaces just like in classes. However, they are not part of the implementing class's interface, they can only be called on the interface itself.
 
-- Abstract class implementing interfaces
+### Default Methods
 
-# Object-Oriented Concepts
+These are methods with a default implementation. They were added to enable new functionality to be added to interfaces without breaking the existing implementation of classes that use these interfaces. They are used to enabled backward compatibility.
 
-Data abstraction is the ability to view only the required characteristics of the object. Encapsulation is the ability to hide behavior under single unit typically a class. It is a protective shield that prevents the data from being accessed by the code outside this shield. Encapsulation is implemented using access modifiers, and abstraction is implemented using abstract and interface classes.
+### Interface vs Abstract Class
 
-### Polymorphism
+Abstract classes are similar to interfaces but they allow fields and constructors, and can also define non-final methods. 
 
-Ability for an object to take different forms during runtime. It is achieved through overriding behavior of a specific object.
+## Polymorphism
+
+Ability for an object to take different forms at runtime. It is achieved through method overriding.
 
 ```java
 public interface Shape {
@@ -257,11 +200,11 @@ for (Shape shape : shapes) {
 }
 ```
 
-### Inheritance
+## Inheritance
 
-Inheritance enables us to reuse existing code or extending an existing type. A call can inherit another class and multiple inheritance. 
+Inheritance is a concept in which the properties of the parent class is inherited by the child class. It enables extending and reusing of code. Inheritance is applied using class and interface and can be of multiple types - single, multilevel, hierarchical, and multiple.
 
-When a class inherits another class or interface, it not only inherits the members but also their type.
+Class only supports single inheritance. A subclass inherting a class can inherit all public, protected instance fields and methods. Static fields and methods don't comply to the traditional rules of inheritance. Subclass cannot inherit static fields or methods but instead access them using Class prefix. A subclass cannot access a private instance field / method, but can access final instance field or method but cannot override it.
 
 ```java
 public interface Car {
@@ -271,24 +214,25 @@ public interface Car {
 public class Skoda implements Car {
 
 }
-
-
-public class Employee {
-    private String name;
-    private Car car;
-
-    public Employee(Car car) {
-        this.car = car
-    }
-}
-
-// Armored Car is a subclass of Car
-Employee e1 = new Employee(new ArmoredCar());
 ```
 
-If both the superclass and subclass define a variable or method with the same name, then it needs to be prefixed with this or super.
+#### Single
 
-If both the superclass and subclass define a static variable or method with the same name, then they need to be explicity called using the class name and not super().
+```java
+class Parent {
+    // Parent class members
+}
+
+class Child extends Parent {
+    // Child class members
+}
+```
+
+### Inheritance Resolution
+
+* For instance fields and methods - if both the have fields or methods with the same name then the field of method need to be explicitly prefixed with this or super for resolution else will be overriden.
+
+* For static variables and methods - if both have static fields or methods with the same name, then they need to be explicity called using the class name (not super).
 
 ```java
 public class Car {
@@ -310,36 +254,45 @@ public class ArmoredCar extends Car {
 }
 ```
 
-Or we can call them explicity. 
+#### Multilevel (Chain)
+
+This occurs when a class is derived from a class which is also derived from another class, i.e., there is a chain of inheritance.
 
 ```java
-public class Car {
-    public static String msg() {
-        return "Car";
-    }
+class Parent {
+    // Parent class members
 }
 
-public class ArmoredCar extends Car {
-    public static String msg() {
-        return "ArmoredCar";
-    }
+class Child extends Parent {
+    // Child class members
 }
 
-Car first = new ArmoredCar();
-ArmoredCar second = new ArmoredCar();
+class Grandchild extends Child {
+    // Grandchild class members
+}
 ```
 
-For the above code, *first.msg()* will output “Car*“* and *second.msg()* will output “ArmoredCar”. The static message that is called depends on the type of the variable used to refer to *ArmoredCar* instance.
+#### Hierarchial
 
-**Class Inheritance**
+In hierarchical inheritance, multiple classes inherit from a single superclass.
 
-* Inheritance using a class. Classes only support single inheritance. A subclass inherits all the non-static protected and public methods from the superclass. 
+```java
+class Parent {
+    // Parent class members
+}
 
-* Default access modifiers can inherit only within the same package. Parent members can be accessed directly by the subclass.
+class Child1 extends Parent {
+    // Child1 class members
+}
 
-**Interface Inheritance**
+class Child2 extends Parent {
+    // Child2 class members
+}
+```
 
-Class can inherit multiple interfaces. 
+#### Multiple
+
+Multiple inheritance is supported only using interfaces. A class can inherit multiple interfaces. An interface can inherit multiple interfaces (using extends keyword).
 
 ```java
 public interface Floatable {
@@ -354,7 +307,7 @@ public interface Flyable {
 ```
 
 ```java
-public class ArmoredCar extends Car implements Floatable, Flyable{
+public class ArmoredCar extends Car implements Floatable, Flyable {
     public void floatOnWater() {
         System.out.println("I can float!");
     }
@@ -410,27 +363,13 @@ public class ArmoredCar extends Car implements Floatable, Flyable {
 }
 ```
 
-**Interface extending multiple interfaces**
+### Rules of Inheritance on Interfaces
 
-Interface can extend multiple interfaces by using extends keyword.
+A subclass inheriting an interface can access all method signatures, constants, default methods, and static fields and methods. A subclass can override default methods of the parent interface.
 
-```java
-public interface Floatable {
-    void floatOnWater();
-}
+## Overloading and Overriding
 
-interface interface Flyable {
-    void fly();
-}
-
-public interface SpaceTraveller extends Floatable, Flyable {
-    void remoteControl();
-}
-```
-
-### Overloading and Overriding
-
-**Overloading**
+### Overloading
 
 Overloading is the ability to create multiple methods with the same name. This is achieved through a process called static binding which is the ability to associate method calls to the correct method (in the method body). In case of overloading binding is done in compile time hence it is also called as static binding. The compiler simply checks the method signature. 
 
@@ -478,11 +417,9 @@ public double multiply(int a, int b) {
 }
 ```
 
-**Overriding**
+### Overriding
 
-Overriding is the ability extend implementation in subclasses for methods defined in the parent class. Overriding is more a consequence of inheritance where overloading need not have inheritance. 
-
-Since overriding can only be implemented using inheritance where there is a hierarchy of base and subtypes. The compiler cannot determine at compile time what method to call. This happens only at runtime and this called as dynamic binding. 
+Overriding is the ability to extend implementation in subclasses for methods defined in the parent class. It is a consequence of inheritance where overloading need not have inheritance. Since overriding can only be implemented using inheritance where there is a hierarchy of base and subtypes. The compiler cannot determine at compile time what method to call. This happens only at runtime and this called as dynamic binding. 
 
 ```java
 public class Vehicle {
