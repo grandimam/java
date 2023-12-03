@@ -1,4 +1,4 @@
-Lambda expressions are functional interfaces. An interface with single abstract method is called functional interface (java.lang.Runnable). They provide below functionalities.
+Lambda expressions are instances of functional interface. A functional interface is an interface with only one abstract method (java.lang.Runnable). They provide the below functionalities.
 
 - Use functions as method arguments
 - A function that can be created without belonging to any class.
@@ -6,8 +6,7 @@ Lambda expressions are functional interfaces. An interface with single abstract 
 
 ### Stream
 
-Stream API is used to process collections of objects. Stream package is for processing sequence of elements. Stream can 
-be created from collections or array using stream() and of() methods. 
+Stream API is used to process collections of objects. It can be created from collections or array using stream() and of() methods. 
 
 ```java
 String[] arr = new String[]{"a", "b", "c"};
@@ -25,23 +24,14 @@ list.parallelStream().forEach(element -> doWork(element));
 
 ### Operations
 
-Operations are divided into intermediate operations and terminal operations. Former allows chaining.
+Operations are divided into intermediate operations and terminal operations. Intermediate Operations are the types of operations in which multiple methods are chained in a row.
 
-```java
-long count = list.stream().distinct().count();
-```
+#### Important Intermediate Operations
 
-**Filtering**
-
-Allows for filtering elements using a Predicate.
-
-**Mapping**
-
-Collect a stream by applying special function to them and collect these new elements. 
-
-**Matching**
-
-Allows for validating elements based on some predicate. 
+1. map - Used to apply a function to each element in the array
+2. filter - Used to select methods based on a predicate
+3. sorted - Used to sort an element
+4. matching - Allows for validating elements based on some predicate. 
 
 ```java
 boolean isValid = list.stream().anyMatch(element -> element.contains("h")); // true
@@ -49,18 +39,25 @@ boolean isValidOne = list.stream().allMatch(element -> element.contains("h")); /
 boolean isValidTwo = list.stream().noneMatch(element -> element.contains("h")); // false
 ```
 
-**Reducing**
+#### Terminal Operations
 
-Allows for reducing a sequence of elements to some value according to a specific function. 
+1. collect - return the result of the intermediate operations performed on the stream
+2. forEach - forEach method is used to iterate through every element of the stream
+3. reduce - reduce method is used to reduce the elements of a stream to a single value
 
-**Collecting**
-
-Allows for collecting the stream to a Collection or Map.
-
-```java
-List<String> resultList 
-  = list.stream().map(element -> element.toUpperCase()).collect(Collectors.toList());
 ```
+arr.stream().reduce(0, (a, b) -> a + b);
+arr.stream().reduce((a, b) -> a + b);
+```
+
+### Method Reference
+
+A method reference is the shorthand syntax for a lambda expression that contains just one method call. There are four type method references that are as follows:
+
+1. Static Method Reference.
+2. Instance Method Reference of a particular object.
+3. Instance Method Reference of an arbitrary object of a particular type.
+4. Constructor Reference.
 
 ### Stream Reference
 
@@ -86,7 +83,6 @@ Stream<String> stream = list.stream().filter(element -> {
 });
 ```
 
-## Functional Interfaces
+### Optional
 
-An interface with a single abstract method is a functional interface. Its implementation may be treated as lambda expressions. 
-
+Optional is a container object which may or may not contain a value. If a value is present, isPresent() will return true and get() will return the value. Additional methods that depend on the presence or absence of a contained value are provided, such as orElse() which returns a default value if the value is not present, and ifPresent() which executes a block of code if the value is present. 

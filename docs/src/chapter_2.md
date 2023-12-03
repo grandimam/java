@@ -1,14 +1,26 @@
-Collection maintains complex data types. 
+Collection framework holds all the collection classes and interface in it. The collection interface is the base interface that all other collection.
 
-### LinkedList
+### Iterable and Iterator
 
-It is a doubly linked list implementation of the List and Deque interfaces. LinkedList permits null values.
+Collection interface extends the iterable interface. Any class that implements the collection interface directly or indirectly inherits the iterable interface as well. Iterable has three methods - 
 
-* It is not synchronized
+* Iterator<T> iterator(): returns the iterator object
 
-* If a list is modified while iteration will result in ConcurrentModificationException
+```
+Iterable<String> lst = List.of("a", "b")
 
-### Comparable and Comparator
+for (String e: lst) {
+    System.out.println(e)
+}
+```
+
+* default void forEach (Consumer<? super T> function):
+
+### Comparable vs Comparator
+
+Comparable and Comparator are interfaces to sort collection objects. Comparable is used to compare object by itself whereas Comparator is a external to the element we are comparing. Collections has a sort() method that takes a comparator. 
+
+Comparable is meant for objects with natural ordering which means the object itself must know how it is to be ordered. A basic differentiating feature is that using comparable we can use only one comparison. Whereas, we can write more than one custom comparators as you want for a given type, all using different interpretations of what sorting mean
 
 Allows for comparing custom object types that aren't directly comparable. 
 
@@ -22,6 +34,15 @@ public class Player implements Comparable<Player> {
         return Integer.compare(getRanking(), otherPlayer.getRanking());
     }
 
+}
+```
+
+```java
+public class DiscoveredAssetComparator implements Comparator<DiscoveredAssetRequest> {
+    @Override
+    public int compare(DiscoveredAssetRequest o1, DiscoveredAssetRequest o2) {
+        return 0;
+    }
 }
 ```
 
@@ -118,3 +139,17 @@ static {
     articleMapOne.put("ar02", "Some article");
 }
 ```
+
+**HashSet vs LinkedHashSet vs TreeSet**
+
+* HashSet does not maintain any order, while LinkedHashSet maintains insertion order.
+* HashSet is typically faster and has less memory overhead than LinkedHashSet.
+* TreeSet guarantees natural ordering of things, and also has a comprator
+
+### LinkedList
+
+It is a doubly linked list implementation of the List and Deque interfaces. LinkedList permits null values.
+
+* It is not synchronized
+
+* If a list is modified while iteration will result in ConcurrentModificationException

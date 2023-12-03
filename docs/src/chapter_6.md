@@ -1,4 +1,25 @@
-Scanner is a simple text scanner that can parse primitive types and string. Buffered Reader on the other hand reads text from character input stream and is more efficient
+# String, IO, and Files
+
+Scanner is a simple text scanner that can parse primitive types and string. Buffered Reader on the other hand reads text from character input stream and is more efficient.
+
+### String Processing
+
+**String analysis**
+
+1. length - returns the number of characters in the string
+2. isEmpty - checks whether the length is 0
+3. indexOf, lastIndexOf - returns the position of the specified index
+
+**String comparision**
+
+1. equals - compares the string content
+2. contains - returns true if the string contains a certain substring
+3. compareTo - 
+4. compareToIgnoreCase - 
+
+### Difference between string buffer, builder, and string
+
+String is an immutable sequence of characters. Any modification will result in a new string object. String builder and buffer are mutable sequences, with one difference that string buffer offers synchronization whereas builder does not. 
 
 ### BufferedReader
 

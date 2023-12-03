@@ -1,74 +1,71 @@
-Exceptions are abnormal behaviors during the execution of the program. Exceptions are just objects with all of them 
-extending from Throwable. Errors are unrecoverable conditions such as OOM, Memory leaks, etc. 
+# Exceptions
 
-```
-              ---> Throwable <--- 
-              |    (checked)     |
-              |                  |
-              |                  |
-      ---> Exception           Error
-      |    (checked)        (unchecked)
-      |
-RuntimeException
-  (unchecked)
-```
+Exception are abnormal behaviors that happens during the execution of the program. Errors are unrecoverable conditions such as OOM, etc. They are both subclasses of Throwable, and can be categorized into two main types: checked and unchecked exceptions.
 
-There are three main categories of exceptions - 
+### Checked Exceptions
 
-* Checked exceptions
+Exceptions that are checked at compile-time are checked exceptions. Compiler requires that you handle these exceptions with a try-catch block or by declaring them with the throws keyword in the method signature. They exceptions are subclasses of Exception, but they do not extend RuntimeException.
 
-* Unchecked exceptions / Runtime Exceptions
+* IOException
+* FileNotFoundException
+* ClassNotFoundException
+* SQLException
 
-* Errors
-
-If a client can reasonably be expected to recover from an exception, make it a checked exception. If a client cannot do 
-anything to recover from the exception, make it an unchecked exception. For example, before we open a file, we can first
-validate the input file name. If the user input file name is invalid, we can throw a custom checked exception: 
+Throwing a checked exception is as simple as using the throw keyword
 
 ```java
-if (!isCorrectFileName(fileName)) {
-    throw new IncorrectFileNameException("Incorrect filename : " + fileName );
+public List<Player> loadAllPlayers(String playersFile) throws TimeoutException {
+    while ( !tooLong ) {
+        // ... potentially long operation
+    }
+    throw new IOException("This operation took too long");
 }
 ```
 
-In this way, we can recover the system by accepting another user input file name. However, if the input file name is a 
-null pointer or it is an empty string, it means that we have some errors in the code. In this case, we should throw an 
-unchecked exception:
+### Unchecked Exceptions
+
+Exceptions that are checked at run-time are unchecked exceptions. They are subclasses of RuntimeException, and include errors which are exceptions that the application should not try to handle. Unchecked exceptions are not checked at compile-time, the compiler does not require these exceptions to be caught or declared in the method signature. 
+
+Examples of unchecked exceptions include:
+
+* NullPointerException
+* ArithmeticException
+* IllegalArgumentException
+* IndexOutOfBoundsException
+
+We do not have to mark the method for unchecked exception. 
 
 ```java
-if (fileName == null || fileName.isEmpty())  {
-    throw new NullOrEmptyException("The filename is null or empty.");
+public List<Player> loadAllPlayers(String playersFile) {
+    if(!isFilenameValid(playersFile)) {
+        throw new IllegalArgumentException("Filename isn't valid!");
+    }
 }
 ```
 
-**Checked**
+If the only possible exception that a given block of code could raise are unchecked exceptions then we can catch and rethrow Throwable or Exception without adding the method signature. 
 
-Checked exceptions are exceptions that are outside the control of our program, and the compiler requires us to handle by
-either throwing the exception up the call stack or catching it. We can use the throws keyword to declare a checked exception. 
+```java
+public List<Player> loadAllPlayers(String playersFile) {
+    try {
+        throw new NullPointerException();
+    } catch (Throwable t) {
+        throw t;
+    }
+}
+```
 
-Eg. IOException, ServletException. 
+### Errors
 
-**Unchecked**
+An Error represents a serious problem that a reasonable application should not try to catch, usually reflecting an error in the runtime environment. Examples include OutOfMemoryError, StackOverflowError, and VirtualMachineError.
 
-Unchecked exceptions are exceptions that represents some error in the program logic. The compiler does not handle these 
-exceptions, and we do not have to declare the exception using the throws keyword. Exceptions that extends RuntimeException
-is unchecked.
+It is possible to catch an Error if you have a good reason to do so, but it's typically a bad idea because it can lead to unpredictable states and make debugging much more difficult.
 
-Eg. NullPointerException, IllegalArgumentException.
+### Throw vs Throws
 
-**Errors**
+Throw is used to throw the exception up the call stack. Throws is a keyword used next to the method to highlight that method throws an exception. 
 
-Errors are irrecoverable conditions like library incompatability, memory leaks, recursion, etc. They are also unchecked 
-exception even though it is not runtime. 
-
-Eg. StackOverflowError, OutOfMemoryError.
-
-**Throw vs Throws**
-
-Throw is used to throw the exception up the call stack. Throws is a keyword used next to the method to highlight that 
-method throws an exception. 
-
-## Handling Exceptions
+### Ways to handle exceptions
 
 **Throws**
 
@@ -177,57 +174,8 @@ public class MyResource implements AutoCloseable {
 
 We can also use final variables inside the try-with-resource block.
 
-## Throwing Exceptions
-
-If we do not want to handle the exceptions or want to generate our own exceptions for others to handle we can use the throw keyword. 
-
-```java
-public class TimeoutException extends Exception {
-    public TimeoutException(String message) {
-        super(message);
-    }
-}
-```
-
-**Checked Exception**
-
-Throwing a checked exception is as simple as using the throw keyword
-
-```java
-public List<Player> loadAllPlayers(String playersFile) throws TimeoutException {
-    while ( !tooLong ) {
-        // ... potentially long operation
-    }
-    throw new TimeoutException("This operation took too long");
-}
-```
-
-**Unchecked Exception**
-
-We do not have to mark the method for unchecked exception. 
-
-```java
-public List<Player> loadAllPlayers(String playersFile) {
-    if(!isFilenameValid(playersFile)) {
-        throw new IllegalArgumentException("Filename isn't valid!");
-    }
-}
-```
-
-If the only possible exception that a given block of code could raise are unchecked exceptions then we can catch and rethrow Throwable or Exception without adding the method signature. 
-
-```java
-public List<Player> loadAllPlayers(String playersFile) {
-    try {
-        throw new NullPointerException();
-    } catch (Throwable t) {
-        throw t;
-    }
-}
-```
-
 ## Exception Handling and Overriding
 
-- If SuperClass does not declare an exception, then the SubClass can only declare unchecked exceptions, but not the checked exceptions.
-- If SuperClass declares an exception, then the SubClass can only declare the same or child exceptions of the exception declared by the SuperClass and any new Runtime Exceptions, just not any new checked exceptions at the same level or higher.
+- If Superclass does not declare an exception, then the subclass can only declare unchecked exceptions
+- If Superclass declares an exception, then the subclass can only declare the same or child exceptions of the exception any new Runtime Exceptions, just not any new checked exceptions at the same level or higher
 - If SuperClass declares an exception, then the SubClass can declare without exception.

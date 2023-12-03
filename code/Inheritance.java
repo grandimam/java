@@ -1,13 +1,14 @@
-public class Account {
-    public void run() {
-        System.out.println("Hello");
+import java.lang.Thread;
+
+public class Person extends Thread {
+    private String name;
+
+    public Person(String name) {
+        this.name = name;
     }
-}
 
-public class Person extends Account {
-
-    // we are overriding the parent method
+    @Override
     public void run() {
-        System.out.println("Hi");
+        
     }
 }

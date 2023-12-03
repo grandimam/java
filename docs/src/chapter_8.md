@@ -40,13 +40,99 @@ java.lang.NullPointerException
       .givenNoExplicitContructor_whenUsed_thenFails(ConstructorUnitTest.java:23)
 ```
 
-### Final Variables
+### Final
+
+* Final variable cannot be reassigned once initialized. It acts like a constant
+* Final methods cannot be overriden. It can be overloaded.
+* Final classes cannot be subclassed.
 
 They can only be initialized within the constructor of the class and are immutable. If we create multiple constructor within the class, then they need to be initialized under each constructor.
 
 ### This and Super
 
-This and Super are keywords that is used to access super classes or parent classes. Super is used on to access the instance variables and methods of parent class. This is used to refer the current object. It is typically used in constructor to differentiate the local variable with the parameters. 
+The this keyword provides a reference to the current object. The super keyword refers to the parent class object. These keywords allow us to refer to a variable or method that has the same name in the current context and the parent object. Super is used on to access the instance variables and methods of parent class. This is used to refer the current object. It is typically used in constructor to differentiate the local variable with the parameters. 
+
+### Record Class
+
+A record class is a immutable class with only getters, and that cannot be extended. It reduces boiler plate code to create an immutable class using final keyword and restricting constructor access. Record class can however extend or implement other classes.
+
+```java
+record Person(int age, String name) {
+
+}
+
+record Person(int age) implements Student {
+    @Override
+    public String getSchoolName() {
+        return super.name
+    }
+}
+```
+
+It is possible to add a static method to a record class. It cannot use any instance variables but can only use variables passed as arguments. record can also have another constructor. It is not possible to add another property or a setter to record, while all additional getters have to use only getters provided already by record.
+
+### Sealed 
+
+Sealed is used to allow certain classes to extend capabilities of the parent class. The difference between a sealed class or interface and a final one is that a sealed class or interface always has a permits keyword, followed by the list of the existing direct subtypes that are allowed to extend the sealed class or interface.
+
+The subtypes listed after the permits keyword must exist at compilation time in the same module as the sealed class or in the same package if in the default (unnamed) module.
+
+### Upcasting vs Downcasting
+
+Casting refers to taking an object of one type and turning it into another type. Upcasting is treating an instance of a subclass as if it were an instance of one of its superclass types. Downcasting is treating an instance of a superclass as if it were an instance of one of its subclass types.
+
+```
+class Animal {
+
+}
+
+class Dog extends Animal {
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Dog dog = new Dog();
+
+        // Upcasting Dog to Animal. This is implicit and safe.
+        Animal animal = dog; 
+
+        // Now 'animal' can be used to call methods that are defined in 'Animal' class.
+    }
+}
+
+```
+
+```
+class Animal {
+
+}
+
+class Dog extends Animal {
+
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal animal = new Animal();
+
+        // Downcasting Animal to Dog. This must be explicit and can be unsafe.
+        Dog dog = (Dog) animal; // This will throw a ClassCastException at runtime.
+
+        // If we are sure that 'animal' is indeed a Dog, then downcasting is fine.
+        Animal animalDog = new Dog();
+        Dog realDog = (Dog) animalDog; // This is correct and will not throw an exception.
+    }
+}
+```
+
+### Converting between primitive and reference types
+
+The conversion of a primitive type value to an object of the corresponding wrapper class is called boxing. Also, the conversion from an object of a wrapper class to the corresponding primitive type value is called unboxing.
+
+* The boxing of a primitive type can be done either automatically (called autoboxing) or explicitly using the valueOf() method available in each wrapper type. 
+
+* The conversion from a wrapper type to the corresponding primitive type is not called auto-unboxing; it is called implicit unboxing instead. In contrast to autoboxing, it is possible to use implicit unboxing even between wrapping and primitive types that do not match.
 
 ## Encapsulation
 
